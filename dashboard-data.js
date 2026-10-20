@@ -39,6 +39,7 @@
           '<div class="unit-info"><h3>' + escapeHtml(unit.title) + '</h3><p>TEKS ' + escapeHtml(unit.teks || 'Not set') + '</p></div>' +
           '<span class="unit-status">Saved</span>' +
           '<button class="unit-open" type="button" aria-label="View ' + escapeHtml(unit.title) + '" data-open-unit="' + escapeHtml(unit.id) + '">→</button>' +
+          '<button class="unit-delete" type="button" aria-label="Delete ' + escapeHtml(unit.title) + '" data-delete-unit="' + escapeHtml(unit.id) + '">Delete</button>' +
           '</article>';
       }).join('');
     }
@@ -86,7 +87,26 @@
         renderUnits(units);
         notice('Unit saved to your teacher account.');
       };
-      if (list) list.onclick = (event) => {
+      if (list) list.onclick = async (event) => {
+        const deleteButton = event.target.closest('[data-delete-unit]');
+        if (deleteButton) {
+          const unit = units.find(item => item.id === deleteButton.dataset.deleteUnit);
+          if (!unit) return;
+          const confirmed = window.confirm('Delete the unit “' + unit.title + '”? This cannot be undone. If it has lessons attached, deletion may be blocked until those lessons are handled.');
+          if (!confirmed) return;
+          deleteButton.disabled = true;
+          const { error: deleteError } = await client.from('units').delete().eq('id', unit.id).eq('teacher_id', teacherId);
+          if (deleteError) {
+            console.error('Science Lab delete unit:', deleteError);
+            deleteButton.disabled = false;
+            notice('Could not delete this unit. If it has lessons attached, handle those lessons first, then try again.');
+            return;
+          }
+          units = units.filter(item => item.id !== unit.id);
+          renderUnits(units);
+          notice('Unit deleted.');
+          return;
+        }
         const button = event.target.closest('[data-open-unit]');
         if (!button) return;
         const unit = units.find(item => item.id === button.dataset.openUnit);
