@@ -80,3 +80,11 @@ Current `index.html` and `teacher-login.html` are prototypes. Authentication, cl
 - `styles.css` positions transparent interactive regions over Back to Home, password input, show/hide control, and Sign In.
 - `script.js` toggles password visibility and opens popup feedback on form submit.
 - Authentication remains a placeholder: the popup explicitly explains that secure sign-in isn't configured yet. Do not treat this form as real login.
+
+
+## Teacher accounts and class separation
+- The Teacher Login page needs a visible show/hide password control.
+- Plan for multi-teacher use: each teacher must authenticate with their own account and only access the classes, assignments, and grade records assigned to that teacher.
+- Tatiyana's class is the only current class, but the data model should support additional teachers/classes in the future.
+- Do not implement separate teacher passwords as a front-end-only security feature. Enforce authentication and class-level authorization on a secure backend before storing real student grades.
+- Current sign-in remains a prototype until secure authentication and authorization are implemented.
