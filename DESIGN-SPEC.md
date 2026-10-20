@@ -109,3 +109,9 @@ Status: **Visual direction approved.** The colorful cartoon classroom theme is a
 - `teacher-dashboard.html`: dashboard layout and prototype interactions.
 - `teacher-dashboard.css`: colorful cartoon-inspired dashboard-specific styles, isolated from Home/Login CSS.
 - `DESIGN-SPEC.md`: approved dashboard layout, visual direction, unit organization, and security requirements.
+
+
+### Dashboard artwork asset (2026-10-20)
+- Owner added the approved full-page dashboard illustration: `Colorful Science Lab Teacher Dashboard.png`.
+- Source: [Colorful Science Lab Teacher Dashboard.png](https://github.com/tathill-teach/sciencelab/blob/main/Colorful%20Science%20Lab%20Teacher%20Dashboard.png).
+- Keep this image as the visual reference for dashboard styling. Do not automatically replace the interactive HTML layout with a single flat image; preserve functional navigation and unit/lesson structure unless the owner explicitly requests a full-image screen.
