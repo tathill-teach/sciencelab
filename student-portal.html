@@ -184,6 +184,8 @@ html body main.wrap #chooseStudent #nameGrid .poster-hotspots{position:absolute!
 #assignments .assignment:has(.status.locked){background:linear-gradient(110deg,#ffe0e5,#fff 60%,#ffd1da)!important;border-color:#cf334d!important}
 #assignments .assignment:has(.status:not(.locked)){background:linear-gradient(110deg,#d8ffe6,#fff 60%,#c5f2ff)!important;border-color:#159653!important}
 @media(max-aspect-ratio:4/3){.password-background{object-fit:fill}}
+
+.status.locked{border-color:#d62845!important;background:#ffe0e5!important;color:#a3132d!important}.status.graded{border-color:#b77900!important;background:linear-gradient(135deg,#fff0a6,#ffd34e)!important;color:#754300!important}#assignmentCard.graded{background:linear-gradient(110deg,#fff0a6,#fff9dc 60%,#ffd34e)!important;border-color:#d69a00!important;box-shadow:0 4px 0 #b77900!important}
 </style>
 </head>
 <body>
@@ -210,7 +212,7 @@ html body main.wrap #chooseStudent #nameGrid .poster-hotspots{position:absolute!
 <p class="eyebrow">YOUR ASSIGNMENTS</p>
 <h1 id="welcome">My Assignments</h1>
 <p class="intro">You're signed in! Choose an assignment when your teacher has unlocked it.</p>
-<div class="assignment">
+<div class="assignment" id="assignmentCard">
 <span class="assignment-icon" aria-hidden="true">🔦</span>
 <div class="assignment-info"><h2>Light Detective Sort-It!</h2><p>Light Energy · 12 picture cards · Graded</p><span class="status" id="sortStatus">Checking availability…</span><p id="sortDue">Checking due date…</p></div>
 <button class="open" id="open" type="button" disabled>Open Assignment →</button>
@@ -233,7 +235,7 @@ function renderNames(){const grid=document.getElementById('nameGrid');if(!studen
 async function init(){try{const r=await fetch(API,{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error||'Could not load class roster.');students=Array.isArray(d.students)?d.students:[];renderNames();const a=d.assignment||{};assignmentAvailable=Boolean(a.available);const st=document.getElementById('sortStatus');st.textContent=assignmentAvailable?'🔓 Available':'🔒 Locked or past due';st.classList.toggle('locked',!assignmentAvailable);document.getElementById('sortDue').textContent=a.due_date?'Due: '+a.due_date:'No due date set';document.getElementById('open').disabled=!assignmentAvailable;}catch(e){document.getElementById('nameGrid').innerHTML='<p class="intro">We could not load the class roster. Please refresh and try again.</p>';document.getElementById('rosterNotice').textContent=e.message;}}
 document.getElementById('backNames').onclick=showNames;
 document.getElementById('portalBack').onclick=()=>{if(!document.getElementById('passwordPage').hidden||!document.getElementById('assignments').hidden){showNames();}else{location.href='./index.html';}};
-async function authenticate(){if(signingIn||picked.length!==2)return;signingIn=true;notice.textContent='Checking your emoji code…';try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error||'That code did not match. Try again!');token=d.session_token;student=d.student_name;document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋';document.getElementById('assignmentNotice').textContent='';window.scrollTo({top:0,behavior:'smooth'});}catch(e){notice.textContent='❌ '+e.message;picked=[];updateSlots();notice.textContent='Try your two emoji pictures again.';draw();}finally{signingIn=false;}}
+async function authenticate(){if(signingIn||picked.length!==2)return;signingIn=true;notice.textContent='Checking your emoji code…';try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error||'That code did not match. Try again!');token=d.session_token;student=d.student_name;document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋';document.getElementById('assignmentNotice').textContent='';const status=document.getElementById('sortStatus'),card=document.getElementById('assignmentCard');if(d.grade){status.textContent='GRADED: '+d.grade.points_earned+'/'+d.grade.points_possible+' ('+d.grade.percentage+'%)';status.classList.remove('locked');status.classList.add('graded');card.classList.add('graded');document.getElementById('sortDue').textContent='Your score is saved in your gradebook.';}else{status.textContent=assignmentAvailable?'AVAILABLE':'LOCKED';status.classList.toggle('locked',!assignmentAvailable);status.classList.remove('graded');card.classList.remove('graded');}document.getElementById('open').disabled=!assignmentAvailable;window.scrollTo({top:0,behavior:'smooth'});}catch(e){notice.textContent='❌ '+e.message;picked=[];updateSlots();draw();}finally{signingIn=false;}}
 document.getElementById('open').onclick=()=>{if(!assignmentAvailable)return;const u=new URL('./light-energy-sort.html',location.href);u.searchParams.set('student',student);u.searchParams.set('session',token);location.href=u.href;};
 draw();init();
 </script>
