@@ -143,3 +143,11 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
  .home-artwork-mode .teacher-hotspot{left:4%;width:45%}
  .home-artwork-mode .student-hotspot{left:51%;width:45%}
 }
+
+/* Keep the complete approved artwork visible: preserve its natural aspect ratio and allow vertical scrolling. */
+.home-artwork-mode{min-height:100vh;height:auto;overflow:visible}
+.home-artwork-mode .home-artwork-image{width:100%;height:auto;object-fit:initial}
+.home-artwork-mode .image-portal{top:44%;height:52%}
+@media(max-width:760px){
+  .home-artwork-mode .image-portal{top:44%;height:52%}
+}
