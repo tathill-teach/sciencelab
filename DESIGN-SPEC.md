@@ -88,3 +88,38 @@ Current `index.html` and `teacher-login.html` are prototypes. Authentication, cl
 - Tatiyana's class is the only current class, but the data model should support additional teachers/classes in the future.
 - Do not implement separate teacher passwords as a front-end-only security feature. Enforce authentication and class-level authorization on a secure backend before storing real student grades.
 - Current sign-in remains a prototype until secure authentication and authorization are implemented.
+
+
+## Screen 03: Teacher Dashboard — approved design (2026-10-20)
+
+Status: Approved design choices and initial responsive frontend prototype committed. This is a visual/product prototype, not a connected authenticated dashboard.
+
+### Approved layout choices
+- **Top tabs:** horizontal navigation across the top for Overview, Units & Lessons, Assignments, Gradebook, My Class, and Settings. On narrow screens, the tab strip can scroll horizontally.
+- **Compact welcome area:** concise “Welcome back, Teacher!” heading and one-line helper text; no oversized banner taking space away from classroom tools.
+- **Colorful summary cards:** four rounded cards summarize My Units, Lessons & Activities, Assignments, and Gradebook. Em dashes indicate placeholder metrics until real saved data is connected.
+- **Dallas ISD YAG units:** use the 10 starter units below, with the ability to add units and unlimited lessons/activities over time. The first five are visible in the overview; the remaining five are expandable.
+- **Art direction:** preserve the approved Science Lab visual language—bright classroom pastels, chunky rounded panels, playful science motifs, and warm classroom colors. Do not replace the user's approved Home/Login artwork with generic emoji people or rough substitute character art. The dashboard prototype uses CSS decorative motifs and typography; it does not claim new character artwork is approved.
+
+### Dashboard content and behavior
+- Quick actions: Create a lesson, Manage assignments, Open private gradebook.
+- Units shown: Properties of Matter (K.6A), Force and Motion (K.7A), Energy (K.8AB), Earth's Materials (K.10A), Natural Resources (K.11A), plus expandable units 6–10: Objects and Patterns in the Sky (K.9AB), Weather and Air (K.10BC), Environments (K.12A–B), Structures of Organisms (K.13AB), Life Cycles (K.13CD).
+- The 10-unit list is a starter organization only, not a hard limit. Teachers must be able to add and revise units, lessons, and activities throughout the year.
+- Summary metrics and profile name are placeholders until an authenticated teacher account and database provide real values. Add/open-unit controls currently show prototype feedback; they do not create or persist curriculum data.
+
+### Private gradebook and security requirements
+- Gradebook is a teacher-only area and must never be exposed to student routes or unauthenticated visitors.
+- Each teacher account must see only its own authorized classes, roster, assignments, grades, and exports. Enforce ownership and authorization on the server/backend, not by hiding dashboard links.
+- Gradebook must persist securely in a shared database; frontend state or local browser storage must not be authoritative grade storage.
+- Track assignment/lesson/unit, raw points earned, points possible, computed percentage, attempt/submission state, and submission timestamp. Preserve raw values; display rounding can be configured later.
+- Provide CSV export for manual transfer into the district's official gradebook. Science Lab is a private teacher reference/export tool, not a replacement for the official district gradebook.
+- Assignments are locked by default and only become accessible when the authenticated teacher explicitly unlocks them. Enforce lock state on the backend.
+- Do not add real student names or results until appropriate district approval and secure backend controls are in place.
+
+### Files
+- `teacher-dashboard.html`: dashboard layout and visible prototype feedback.
+- `teacher-dashboard.css`: dashboard-specific responsive visual styling, kept separate from existing Home/Login CSS to reduce risk of breaking approved pages.
+- `DESIGN-SPEC.md`: approved dashboard choices and product/security requirements.
+
+### Prototype limitation
+The current Teacher Login page still uses explanatory placeholder feedback; it does not authenticate a real account. The dashboard is not yet protected by a real session and must not contain real student records until secure authentication, role/class-level authorization, database persistence, assignment-lock enforcement, and CSV export are implemented and tested.
