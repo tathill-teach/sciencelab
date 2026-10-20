@@ -104,6 +104,26 @@
       students = await loadRoster();
       sayRoster('Student removed. Existing grades remain saved.');
     };
+    const assignmentSettings = async () => {
+      const dueInput = document.getElementById('sortDueDate');
+      const unlockedInput = document.getElementById('sortUnlocked');
+      const saveButton = document.getElementById('saveSortSettings');
+      const status = document.getElementById('sortSettingsNotice');
+      if (!dueInput || !unlockedInput || !saveButton) return;
+      const result = await client.from('assignments').select('id,is_unlocked,due_date').eq('teacher_id', teacherId).eq('title', 'Light Detective Sort-It!').order('created_at', { ascending: false }).limit(1).maybeSingle();
+      if (result.error || !result.data) { if (status) status.textContent = 'Could not load assignment settings.'; return; }
+      dueInput.value = result.data.due_date || '';
+      unlockedInput.checked = Boolean(result.data.is_unlocked);
+      saveButton.onclick = async () => {
+        saveButton.disabled = true;
+        if (status) status.textContent = 'Saving assignment settings…';
+        const { error } = await client.from('assignments').update({ due_date: dueInput.value || null, is_unlocked: unlockedInput.checked }).eq('id', result.data.id).eq('teacher_id', teacherId);
+        saveButton.disabled = false;
+        if (error) { if (status) status.textContent = 'Could not save. Check assignment permissions and try again.'; return; }
+        if (status) status.textContent = 'Saved. Students can ' + (unlockedInput.checked ? 'see this assignment' : 'no longer access this assignment') + (dueInput.value ? '; due ' + dueInput.value + '.' : '. No due date set.');
+      };
+    };
+    await assignmentSettings();
     const refresh = document.getElementById('refreshGrades');
     if (refresh) refresh.onclick = loadGrades;
     await loadGrades();
