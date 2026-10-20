@@ -46,6 +46,69 @@
     const count = document.getElementById('unitCount');
     if (count) count.textContent = String(units.length);
   };
+
+  const initRosterAndGrades = async (client, teacherId) => {
+    const rosterNode = document.getElementById('studentRoster');
+    const form = document.getElementById('studentForm');
+    const nameInput = document.getElementById('studentDisplayName');
+    const rosterNotice = document.getElementById('rosterNotice');
+    const gradesNode = document.getElementById('lightSortGradeList');
+    const sayRoster = (message) => { if (rosterNotice) rosterNotice.textContent = message; };
+    const renderRoster = (students) => {
+      if (!rosterNode) return;
+      rosterNode.innerHTML = students.length ? students.map(student =>
+        '<article class="unit-row"><span class="unit-number pink-number">👤</span><span class="unit-color pink-line"></span><div class="unit-info"><h3>' + escapeHtml(student.display_name) + '</h3><p>Class roster</p></div><button class="unit-delete" type="button" data-delete-student="' + escapeHtml(student.id) + '">Remove</button></article>'
+      ).join('') : '<p class="panel-copy">No students added yet. Add your class roster above.</p>';
+    };
+    const loadRoster = async () => {
+      const result = await client.from('students').select('id,display_name,created_at').eq('teacher_id', teacherId).order('display_name', { ascending: true });
+      if (result.error) { if (rosterNode) rosterNode.innerHTML = '<p class="panel-copy">Could not load the class roster.</p>'; return []; }
+      renderRoster(result.data || []);
+      return result.data || [];
+    };
+    const loadGrades = async () => {
+      if (!gradesNode) return;
+      gradesNode.innerHTML = '<p class="panel-copy">Loading submitted grades…</p>';
+      const assignmentResult = await client.from('assignments').select('id').eq('teacher_id', teacherId).eq('title', 'Light Detective Sort-It!').order('created_at', { ascending: false }).limit(1).maybeSingle();
+      if (assignmentResult.error || !assignmentResult.data) { gradesNode.innerHTML = '<p class="panel-copy">The graded assignment is not set up yet.</p>'; return; }
+      const result = await client.from('gradebook_entries').select('student_label,points_earned,points_possible,submission_state,submitted_at').eq('teacher_id', teacherId).eq('assignment_id', assignmentResult.data.id).order('submitted_at', { ascending: false });
+      if (result.error) { gradesNode.innerHTML = '<p class="panel-copy">Could not load submitted grades.</p>'; return; }
+      const entries = result.data || [];
+      gradesNode.innerHTML = entries.length ? entries.map(entry => {
+        const points = Number(entry.points_earned || 0), possible = Number(entry.points_possible || 12);
+        const pct = possible ? Math.round(points / possible * 1000) / 10 : 0;
+        const date = entry.submitted_at ? new Date(entry.submitted_at).toLocaleString() : 'Submitted';
+        return '<article class="unit-row"><span class="unit-number green-number">✓</span><span class="unit-color green-line"></span><div class="unit-info"><h3>' + escapeHtml(entry.student_label) + '</h3><p>' + points + ' / ' + possible + ' points • ' + pct + '% • ' + escapeHtml(date) + '</p></div><span class="unit-status">Submitted</span></article>';
+      }).join('') : '<p class="panel-copy">No student submissions yet. Grades will appear here after students submit.</p>';
+    };
+    let students = await loadRoster();
+    if (form) form.onsubmit = async (event) => {
+      event.preventDefault();
+      const displayName = (nameInput?.value || '').trim();
+      if (!displayName) return;
+      const duplicate = students.some(s => s.display_name.toLocaleLowerCase() === displayName.toLocaleLowerCase());
+      if (duplicate) { sayRoster('That name is already on the roster.'); return; }
+      const { error } = await client.from('students').insert({ teacher_id: teacherId, display_name: displayName, class_id: null });
+      if (error) { console.error('Add student:', error); sayRoster('Could not add the student. Please try again.'); return; }
+      if (nameInput) nameInput.value = '';
+      students = await loadRoster();
+      sayRoster('Student added to the roster.');
+    };
+    if (rosterNode) rosterNode.onclick = async (event) => {
+      const button = event.target.closest('[data-delete-student]');
+      if (!button) return;
+      const student = students.find(s => s.id === button.dataset.deleteStudent);
+      if (!student || !window.confirm('Remove ' + student.display_name + ' from the roster? Previously submitted grades will remain in the gradebook.')) return;
+      const { error } = await client.from('students').delete().eq('id', student.id).eq('teacher_id', teacherId);
+      if (error) { sayRoster('Could not remove this student.'); return; }
+      students = await loadRoster();
+      sayRoster('Student removed. Existing grades remain saved.');
+    };
+    const refresh = document.getElementById('refreshGrades');
+    if (refresh) refresh.onclick = loadGrades;
+    await loadGrades();
+  };
+
   const init = async () => {
     const client = window.SCIENCE_LAB_AUTH_CLIENT;
     if (!client) return;
@@ -65,6 +128,7 @@
         units = result.data || [];
       }
       renderUnits(units);
+      await initRosterAndGrades(client, teacherId);
       if (!window._scienceLabUnitNoticeShown) {
         notice('Your unit library is connected. Your units are now saved to your teacher account.');
         window._scienceLabUnitNoticeShown = true;
