@@ -108,3 +108,8 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
 .cta:disabled{cursor:not-allowed;filter:saturate(.72);opacity:.78;transform:none}
 .cta:disabled:hover{transform:none;filter:saturate(.72)}
 @media(max-width:760px){.teacher-art{height:185px;width:min(100%,210px)}.student-art{height:150px;width:min(100%,360px)}}
+
+/* Teacher Login uses the same custom illustrated teacher asset as the home portal. */
+.teacher-illustration .character{display:block;width:min(100%,300px);height:300px;object-fit:contain;filter:drop-shadow(0 7px 0 #e7a0c8)}
+.desk span{display:inline-block;margin:4px;padding:4px 7px;background:#fff0bd;border:2px solid #b87942;border-radius:7px;font-size:clamp(9px,1.2vw,14px);font-weight:1000}
+@media(max-width:760px){.teacher-illustration .character{height:190px;width:min(100%,210px)}}
