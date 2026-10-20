@@ -17,7 +17,7 @@ Status: Initial implementation committed. Approved visual direction; review the 
   1. Pink **Teacher** card with cartoon teacher. Support text: “Create · Assign · Grade · Manage”. Button: “Teacher Login”. Password-protected access.
   2. Blue **Student** card with diverse cartoon students. Support text: “Choose your class and name to open your science activities”. Button: “Student Portal”.
 - Classroom background with shelves, books, plants, windows, and small science decorations. Keep visual focus on portals.
-- Current implementation: `index.html`. Portal buttons currently open placeholder messaging, not the functional next screens.
+- Current implementation: `index.html` uses custom SVG cartoon assets (`assets/cartoon-teacher.svg` and `assets/diverse-cartoon-students.svg`) instead of emoji character stand-ins. The Teacher card navigates to `teacher-login.html`. The Student button is disabled until its class-selection screen is implemented; it no longer shows a placeholder popup.
 
 ## Screen 02: Teacher Login
 
