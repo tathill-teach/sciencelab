@@ -65,5 +65,10 @@ Use the uploaded Dallas ISD Kindergarten Science YAG as the initial 10-unit orga
 - Do not proceed to the next screen until the owner confirms the current screen.
 - Planned screens after Teacher Login: Student Class Selection; Student Name Selection; Teacher Dashboard; Unit/Lesson Library; Activity/Quiz Builder; Assignment Management with teacher-only unlock; Private Gradebook; Settings/Roster Management.
 
+### Shared frontend files
+- `styles.css`: shared visual styles for both screens. It currently combines the style rules extracted from the initial page prototypes; before the full site is deployed, refine any page-specific CSS conflicts and test both screens at desktop and tablet sizes.
+- `script.js`: shared, guarded interactions for both pages. It initializes only controls present on the current page.
+- `index.html` and `teacher-login.html` reference the shared stylesheet and script rather than embedding their own blocks.
+
 ### Implementation note
 Current `index.html` and `teacher-login.html` are prototypes. Authentication, class selection, assignment unlock enforcement, database persistence, gradebook, and deployment are not yet implemented. Never describe those features as working until implemented and tested.
