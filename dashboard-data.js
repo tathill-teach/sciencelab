@@ -114,13 +114,50 @@
       if (result.error || !result.data) { if (status) status.textContent = 'Could not load assignment settings.'; return; }
       dueInput.value = result.data.due_date || '';
       unlockedInput.checked = Boolean(result.data.is_unlocked);
+      const lockButton = document.getElementById('sortLockToggle');
+      const paintLock = (unlocked) => {
+        if (!lockButton) return;
+        lockButton.classList.toggle('is-unlocked', unlocked);
+        lockButton.classList.toggle('is-locked', !unlocked);
+        lockButton.setAttribute('aria-pressed', String(unlocked));
+        lockButton.setAttribute('aria-label', unlocked ? 'Lock assignment for students' : 'Unlock assignment for students');
+        lockButton.querySelector('.lock-label').textContent = unlocked ? 'Unlocked' : 'Locked';
+        lockButton.querySelector('.lock-hint').textContent = unlocked ? 'Click to lock' : 'Click to unlock';
+      };
+      paintLock(unlockedInput.checked);
+      let savingLock = false;
+      if (lockButton) lockButton.onclick = async () => {
+        if (savingLock) return;
+        const previous = unlockedInput.checked;
+        const next = !previous;
+        savingLock = true;
+        lockButton.disabled = true;
+        unlockedInput.checked = next;
+        paintLock(next);
+        lockButton.classList.add('lock-wiggle');
+        if (status) status.textContent = next ? 'Unlocking assignment…' : 'Locking assignment…';
+        const { error } = await client.from('assignments').update({ is_unlocked: next }).eq('id', result.data.id).eq('teacher_id', teacherId);
+        lockButton.classList.remove('lock-wiggle');
+        lockButton.disabled = false;
+        savingLock = false;
+        if (error) {
+          console.error('Save assignment lock:', error);
+          unlockedInput.checked = previous;
+          paintLock(previous);
+          if (status) status.textContent = 'Could not change the lock. Check assignment permissions and try again.';
+          return;
+        }
+        result.data.is_unlocked = next;
+        if (status) status.textContent = next ? 'Assignment unlocked. Students can open it now.' : 'Assignment locked. Students can no longer open it.';
+      };
       saveButton.onclick = async () => {
         saveButton.disabled = true;
-        if (status) status.textContent = 'Saving assignment settings…';
-        const { error } = await client.from('assignments').update({ due_date: dueInput.value || null, is_unlocked: unlockedInput.checked }).eq('id', result.data.id).eq('teacher_id', teacherId);
+        if (status) status.textContent = 'Saving due date…';
+        const { error } = await client.from('assignments').update({ due_date: dueInput.value || null }).eq('id', result.data.id).eq('teacher_id', teacherId);
         saveButton.disabled = false;
-        if (error) { if (status) status.textContent = 'Could not save. Check assignment permissions and try again.'; return; }
-        if (status) status.textContent = 'Saved. Students can ' + (unlockedInput.checked ? 'see this assignment' : 'no longer access this assignment') + (dueInput.value ? '; due ' + dueInput.value + '.' : '. No due date set.');
+        if (error) { console.error('Save assignment due date:', error); if (status) status.textContent = 'Could not save the due date. Check assignment permissions and try again.'; return; }
+        result.data.due_date = dueInput.value || null;
+        if (status) status.textContent = 'Due date saved' + (dueInput.value ? ': ' + dueInput.value + '.' : '. No due date set.');
       };
     };
     await assignmentSettings();
