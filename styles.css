@@ -180,3 +180,14 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
  .teacher-password-form{left:44.5%;top:68.4%;width:41.5%;height:21%}
  .teacher-password-form input{font-size:12px;padding-left:14%;padding-right:15%}
 }
+
+/* Align the real password field with the password bar in the uploaded 1536x1024 login artwork. */
+.teacher-password-form{left:44.5%;top:53.2%;width:41.5%;height:20%}
+.teacher-password-form input{top:0;height:39%;color:#272044;background:rgba(255,255,255,.015);pointer-events:auto;z-index:2}
+.teacher-password-form input::placeholder{color:#78859a;opacity:1}
+.teacher-toggle-password{z-index:3;pointer-events:auto;cursor:pointer}
+.teacher-signin-hotspot{top:48%;height:44%;z-index:2;pointer-events:auto}
+@media(max-width:700px){
+ .teacher-password-form{left:44.5%;top:53.2%;width:41.5%;height:20%}
+ .teacher-password-form input{height:39%;font-size:12px}
+}
