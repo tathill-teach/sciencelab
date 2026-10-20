@@ -2,34 +2,52 @@
 
 ## Screen 01: Home / Portal Selection
 
-Status: Initial implementation committed. This is the first screen only. Do not design or implement additional screens until the owner approves the home screen implementation.
+Status: Initial implementation committed. Approved visual direction; review the live HTML prototype before calling it complete.
 
 ### Brand
-- Product name: **Science Lab** (do not use a teacher's personal name in the site branding; it may be shared with other kindergarten teachers).
+- Product name: **Science Lab** (no personal teacher name in the brand; it may be shared with other kindergarten teachers).
 - Tagline: **Explore • Experiment • Discover • Learn**
-- Style: bright, playful, cartoon classroom laboratory; colorful rounded panels; outlined bubble typography; cheerful science props; books, plants, stars and classroom windows.
-- Character representation: intentionally varied racial backgrounds across illustrations. Do not depict only Black children or only one racial group. Teacher card should use a cartoon teacher; student card should show a diverse group of cartoon students.
+- Style: bright, playful cartoon classroom laboratory; colorful rounded panels; outlined bubble typography; science props, books, plants, stars and classroom windows.
+- Character representation: intentionally varied racial backgrounds across illustrations. Do not depict only Black children or only one racial group. Teacher card has a cartoon teacher; student card has a diverse group of cartoon students.
 - Responsive for classroom desktop, projector, and student iPads.
 
 ### Home screen content
-- No unit cards on this screen. Unit and lesson browsing should happen after a student has chosen their class/name or a teacher has authenticated.
-- Two large portal cards side-by-side on desktop and stacked on narrow screens:
-  1. Pink **Teacher** card with cartoon teacher illustration. Support text: “Create · Assign · Grade · Manage”. Button: “Teacher Login”. Note: password-protected access.
-  2. Blue **Student** card with a diverse group of cartoon students. Support text: “Choose your class and name to open your science activities”. Button: “Student Portal”.
-- Background: bright cartoon science classroom with shelving, science books, plants, windows, small science-themed decorations, and rug. Keep visual focus on the two portals.
-- Avoid using “Ms. Hill” or any personal teacher name in the brand/logo.
+- No unit cards on the home screen. Unit and lesson browsing happens after a student has selected class/name or a teacher has authenticated.
+- Two portal cards side-by-side on desktop and stacked on narrow screens:
+  1. Pink **Teacher** card with cartoon teacher. Support text: “Create · Assign · Grade · Manage”. Button: “Teacher Login”. Password-protected access.
+  2. Blue **Student** card with diverse cartoon students. Support text: “Choose your class and name to open your science activities”. Button: “Student Portal”.
+- Classroom background with shelves, books, plants, windows, and small science decorations. Keep visual focus on portals.
+- Current implementation: `index.html`. Portal buttons currently open placeholder messaging, not the functional next screens.
 
-### Behavior and security requirements
-- Teacher portal must use secure authenticated access. The gradebook, student scores, roster management, and teacher controls are private to the authenticated teacher/authorized educator, never visible in student access.
-- Student entry path: click Student, select class, then select name. A name selector alone is not authentication; enforce assignment and submission permissions on the server/backend.
-- Assignments are locked by default. Only assignments explicitly unlocked by the teacher should be accessible. Enforce unlock/lock state server-side; hiding a link in UI is insufficient.
-- Grades must be stored in a secure shared database, not only local browser storage. Confirm district approval before adding real student names or results.
-- Gradebook stores points earned, points possible, computed percentage, assignment, lesson, unit, attempt/submission state, and submission timestamp. For example, 11/14 = 78.571...%; preserve raw points and configure display rounding later.
-- The Science Lab gradebook is a private teacher reference/export tool, not a replacement for the district's official gradebook. Support CSV export for manual transfer.
-- Activities and lessons can be added continuously throughout the year; do not hard-limit the number of lessons or activities.
+## Screen 02: Teacher Login
+
+Status: Approved design choices and prototype committed. Authentication is not connected yet.
+
+### Approved appearance
+- Same bright, colorful cartoon classroom style as home screen.
+- Science Lab logo and tagline at top.
+- Purple **Back to Home** button at top-left, linking back to `index.html`.
+- Cartoon teacher illustration with classroom desk/books/supplies.
+- Large pink rounded Teacher Login panel.
+- Intro text: “Enter your password to access lessons, assignments, grades, and more!”
+- Password field includes an eye toggle to show/hide the entered password.
+- Prominent pink **Sign In** button.
+- Incorrect/unavailable sign-in feedback should appear as a pop-up modal.
+- Friendly, playful classroom details, responsive layout, and accessible labels/focus states.
+- Current implementation: `teacher-login.html`. Its form currently opens an explanatory placeholder modal because secure authentication has not yet been configured. It does not validate a real password.
+
+### Product and security requirements
+- Teacher portal must use secure authenticated access. Gradebook, scores, roster management, and teacher controls are private to authenticated/authorized teacher accounts and never visible in student access.
+- Do not store a real teacher password in client-side HTML or JavaScript.
+- Student entry: click Student, select class, then select name. Name selection alone is not authentication; enforce assignment/submission permissions on the server/backend.
+- Assignments are locked by default. Only assignments explicitly unlocked by the teacher should be accessible. Enforce lock state server-side; hiding a link in the UI is insufficient.
+- Grades stored in a secure shared database, not only browser storage. Confirm district approval before adding real student names or results.
+- Gradebook stores points earned, points possible, computed percentage, assignment, lesson, unit, attempt/submission state, and submission timestamp. Example: 11/14 = 78.571...%; preserve raw points and configure display rounding later.
+- Science Lab is a private teacher reference/export tool, not a replacement for the district's official gradebook. Support CSV export for manual transfer.
+- Allow teachers to add lessons and activities throughout the year without a fixed low limit.
 
 ### Initial year structure
-Use the uploaded Dallas ISD Kindergarten Science YAG as the initial 10-unit organization. It is a starting catalog, not a limit on teacher-created content:
+Use the uploaded Dallas ISD Kindergarten Science YAG as the initial 10-unit organization, not a limit on teacher-created content:
 1. Properties of Matter — K.6A
 2. Force and Motion — K.7A
 3. Energy — K.8AB
@@ -43,9 +61,9 @@ Use the uploaded Dallas ISD Kindergarten Science YAG as the initial 10-unit orga
 
 ### Screen-by-screen workflow
 - Design, build, and review one screen at a time.
-- Keep approved specifications in this file and update them when the owner approves a change.
+- Keep approved specifications here and update them when the owner approves changes.
 - Do not proceed to the next screen until the owner confirms the current screen.
-- Planned next screens (not yet designed/implemented): secure Teacher Login; Student Class Selection; Student Name Selection; Teacher Dashboard; Unit/Lesson Library; Activity/Quiz Builder; Assignment Management with teacher-only unlock; Private Gradebook; Settings/Roster Management.
+- Planned screens after Teacher Login: Student Class Selection; Student Name Selection; Teacher Dashboard; Unit/Lesson Library; Activity/Quiz Builder; Assignment Management with teacher-only unlock; Private Gradebook; Settings/Roster Management.
 
 ### Implementation note
-The current `index.html` is an initial home screen prototype. Its Teacher/Student buttons only display placeholder messaging for future screens. Authentication, class selection, assignments, database persistence, gradebook, and deployment are not yet implemented. Never describe those features as working until implemented and tested.
+Current `index.html` and `teacher-login.html` are prototypes. Authentication, class selection, assignment unlock enforcement, database persistence, gradebook, and deployment are not yet implemented. Never describe those features as working until implemented and tested.
