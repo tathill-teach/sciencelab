@@ -8,25 +8,25 @@
 <style>
 :root{--ink:#24123e;--purple:#7024d9;--pink:#f20b83;--blue:#078ff0;--yellow:#ffca22;--green:#10b96b}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;background:#fff1d5;background-image:radial-gradient(circle at 8% 10%,#fff 0 3px,transparent 4px),radial-gradient(circle at 92% 22%,#ffd94d 0 4px,transparent 5px),linear-gradient(180deg,#9feaff 0,#dff8ff 19%,#fff2d5 50%,#ffdfb7 100%);background-attachment:fixed}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,#ffbd4d22 0 8%,transparent 8% 92%,#ffbd4d22 92%);border-bottom:12px solid #a95b27}
-.wrap{width:min(1050px,94%);margin:auto;padding:22px 0 38px}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;background:#c9f1ff;background-image:radial-gradient(circle at 8% 10%,#fff 0 3px,transparent 4px),radial-gradient(circle at 92% 22%,#ffd94d 0 4px,transparent 5px),radial-gradient(circle at 18% 35%,#fff8 0 5px,transparent 6px),linear-gradient(180deg,#9feaff 0,#e7faff 60%,#c9efff 100%);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 0% 50%,#80d9ff55 0 12%,transparent 26%),radial-gradient(ellipse at 100% 45%,#ffe58b66 0 12%,transparent 27%)}
+.wrap{width:min(1160px,96%);margin:auto;padding:24px 0 38px}
 .brand{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;background:linear-gradient(145deg,#fff,#ffe7f6);border:3px solid var(--ink);border-radius:18px;box-shadow:0 4px 0 #bcb1ce;text-decoration:none;color:var(--pink);font-weight:1000;font-size:clamp(17px,3vw,23px);text-shadow:1px 2px #fff}
-.card{background:linear-gradient(145deg,#fffefa,#fff5e8);border:4px solid var(--ink);border-radius:30px;padding:clamp(18px,4vw,34px);margin-top:22px;box-shadow:0 7px 0 #4b28764a,inset 0 0 0 4px #fff}
+.card{background:linear-gradient(145deg,#ffffffef,#effbffef);border:4px solid #fff;border-radius:32px;padding:clamp(18px,3vw,28px);margin-top:18px;box-shadow:0 8px 0 #a4cbe6,inset 0 0 0 2px #c6eaff}
 .eyebrow{font-size:11px;font-weight:1000;letter-spacing:1.6px;color:var(--purple);margin:0 0 7px}
-h1{font-size:clamp(29px,5vw,46px);line-height:1.05;letter-spacing:-1px;margin:0 0 10px;color:var(--pink);text-shadow:2px 3px #fff,-2px -2px #fff,3px 4px #6a174b}
+h1{font-size:clamp(29px,4.5vw,43px);line-height:1.05;letter-spacing:-1px;margin:0 0 10px;color:#24123e;text-shadow:2px 3px #fff,-2px -2px #fff}
 h2{margin:0 0 8px;color:var(--purple);font-size:clamp(21px,4vw,30px)}
 .intro{font-size:15px;font-weight:800;line-height:1.5;margin:0;color:#4c3764}
-.name-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-top:22px}
-.name-tile{position:relative;min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:13px 8px;border:3px solid var(--ink);border-radius:21px;background:linear-gradient(145deg,#fff,#e4f8ff);box-shadow:0 5px 0 #b7a7cb,inset 0 0 0 3px #ffffffb5;color:var(--ink);font:inherit;font-weight:1000;cursor:pointer;transition:transform .16s,box-shadow .16s,filter .16s}
-.name-tile:nth-child(5n+2){background:linear-gradient(145deg,#fff,#ffe0f0)}
-.name-tile:nth-child(5n+3){background:linear-gradient(145deg,#fff9c9,#ffca22)}
-.name-tile:nth-child(5n+4){background:linear-gradient(145deg,#d7ffe5,#fff)}
-.name-tile:nth-child(5n){background:linear-gradient(145deg,#e8dcff,#fff)}
+.name-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:22px}
+.name-tile{position:relative;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px 6px 9px;border:3px solid #f20b83;border-radius:22px;background:linear-gradient(145deg,#fff,#ffe1f2);box-shadow:0 4px 0 #e5a6d0,inset 0 0 0 3px #ffffffb5;color:var(--ink);font:inherit;font-weight:1000;cursor:pointer;transition:transform .16s,box-shadow .16s,filter .16s}
+.name-tile:nth-child(5n+2){background:linear-gradient(145deg,#fff,#fff1ad);border-color:#ffb900;box-shadow:0 4px 0 #e7c35c,inset 0 0 0 3px #ffffffb5}
+.name-tile:nth-child(5n+3){background:linear-gradient(145deg,#fff,#ffe0f2);border-color:#f20b83}
+.name-tile:nth-child(5n+4){background:linear-gradient(145deg,#d7ffe5,#fff);border-color:#10b96b;box-shadow:0 4px 0 #9bdab4,inset 0 0 0 3px #ffffffb5}
+.name-tile:nth-child(5n){background:linear-gradient(145deg,#e8dcff,#fff);border-color:#078ff0;box-shadow:0 4px 0 #9bc8e9,inset 0 0 0 3px #ffffffb5}
 .name-tile:hover{transform:translateY(-3px);box-shadow:0 8px 0 #b7a7cb;filter:saturate(1.08)}
 .name-tile:active{transform:translateY(2px);box-shadow:0 2px 0 #b7a7cb}
-.name-avatar{width:43px;height:43px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:15px;background:#fff;font-size:23px;box-shadow:0 3px 0 #0001}
-.name-tile span:last-child{font-size:clamp(12px,1.4vw,15px);line-height:1.15;overflow-wrap:anywhere}
+.name-avatar{width:66px;height:66px;display:grid;place-items:center;border:2px solid #ffffff;border-radius:17px 17px 12px 12px;background:linear-gradient(#fff5c8,#ffdb9d);font-size:43px;line-height:1;box-shadow:0 2px 0 #0001;overflow:hidden}
+.name-tile span:last-child{font-size:clamp(12px,1.4vw,16px);line-height:1.15;overflow-wrap:anywhere}
 .pad{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:10px;margin-top:18px;max-width:650px}
 .emoji{min-height:66px;font-size:clamp(26px,4vw,34px);padding:8px;border:3px solid var(--ink);border-radius:16px;background:linear-gradient(#fff,#f5eaff);cursor:pointer;box-shadow:0 4px 0 #bcb1ce;transition:transform .14s,background .14s}
 .emoji:nth-child(3n+1){background:linear-gradient(#fff,#fff0c2)}.emoji:nth-child(3n+2){background:linear-gradient(#fff,#e2f8ff)}
@@ -50,9 +50,8 @@ button{font:inherit;font-weight:1000}
 <main class="wrap">
 <a class="brand" href="./index.html"><span aria-hidden="true">⚗️</span> Science Lab <span style="font-size:12px;color:var(--ink);text-shadow:none">· Student Portal</span></a>
 <section class="card" id="chooseStudent">
-<p class="eyebrow">WELCOME, YOUNG SCIENTISTS!</p>
-<h1>Who's ready to explore? 🔎</h1>
-<p class="intro">Find your name below and tap your tile. Everyone's name is right here—no dropdown needed!</p>
+<div style="display:flex;align-items:center;gap:14px;justify-content:center;margin:0 auto 12px;padding:10px 18px;background:linear-gradient(110deg,#fff,#ffe5f4);border:3px solid #f20b83;border-radius:999px;box-shadow:0 4px 0 #dba4c8;max-width:760px"><span style="font-size:clamp(34px,5vw,54px);filter:drop-shadow(2px 3px #c5b8dc)" aria-hidden="true">🔎</span><h1 style="margin:0;text-align:center">Who’s ready to explore?</h1></div>
+<p class="intro" style="text-align:center;font-size:clamp(15px,2vw,18px);margin:10px 0 0">⭐ Tap your name to continue! ⭐</p>
 <div id="nameGrid" class="name-grid" aria-label="Choose your name"><p class="intro">Loading your class…</p></div>
 <p class="notice" id="rosterNotice" role="status" aria-live="polite"></p>
 </section>
@@ -82,7 +81,7 @@ button{font:inherit;font-weight:1000}
 <script>
 const API='https://cwhkswbykgpfachpcjjo.supabase.co/functions/v1/light-sort-assignment';
 const choices=['🐶','🚀','🦖','⭐','🦄','🌈','🚗','🐱','🦋','🍕','❤️'];
-const avatars=['🧪','🔭','🦋','🚀','🌟','🦄','🪐','🦕','🌈','🐝','🧬','🌻','🦖','⭐','🔬'];
+const avatars=['👧🏾','👦🏻','👧🏻','👦🏼','👦🏾','👦🏽','👦🏻','👧🏾','👦🏿','👧🏼','👦🏿','👧🏽','👦🏽','👧🏻','👦🏼'];
 let picked=[],token='',student='',assignmentAvailable=false,students=[];
 const pad=document.getElementById('pad'),notice=document.getElementById('notice');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
