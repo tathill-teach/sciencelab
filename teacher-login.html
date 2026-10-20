@@ -2,37 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#6b3dc2">
 <title>Science Lab | Teacher Login</title>
 <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-<main class="scene">
-<div class="window left" aria-hidden="true"></div><div class="window right" aria-hidden="true"></div>
-<a class="back" href="./index.html">← Back to Home</a>
-<header class="logo"><h1>SCIENCE <span>LAB</span></h1><div class="motto">EXPLORE • EXPERIMENT • DISCOVER • LEARN</div></header>
-<section class="layout">
-<aside class="teacher-illustration" aria-label="Cartoon teacher in a classroom">
-<img class="character" src="./assets/cartoon-teacher.svg" alt="Smiling illustrated teacher in a pink cardigan holding a science book">
-<div class="desk"><span>BOOKS</span><span>LAPTOP</span><span>LESSON PLAN</span><span>PENCILS</span></div>
-<div class="caption">Your classroom science workspace! ✨</div>
-</aside>
-<section class="login" aria-labelledby="loginTitle">
-<h2 id="loginTitle">⭐ Teacher Login ⭐</h2>
-<p class="intro">Enter your password to access lessons, assignments, grades, and more!</p>
-<form id="loginForm">
-<div class="field-wrap"><span class="lock" aria-hidden="true">🔒</span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter Password" aria-label="Enter teacher password" required><button class="toggle" id="togglePassword" type="button" aria-label="Show password" title="Show or hide password">👁️</button></div>
-<button class="signin" type="submit">Sign In　➜</button>
+<body class="teacher-artwork-page">
+<main class="teacher-artwork-shell">
+<img class="teacher-login-artwork" src="https://raw.githubusercontent.com/tathill-teach/sciencelab/main/Science%20Lab%20Teacher%20Login.png" alt="Science Lab Teacher Login illustrated classroom design">
+<a class="teacher-back-hotspot" href="./index.html" aria-label="Back to Home"></a>
+<form class="teacher-password-form" id="loginForm" aria-label="Teacher sign in">
+<label class="visually-hidden" for="password">Enter teacher password</label>
+<input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter Password" aria-label="Enter Password" required>
+<button class="teacher-toggle-password" id="togglePassword" type="button" aria-label="Show password" title="Show or hide password">◉</button>
+<button class="teacher-signin-hotspot" type="submit" aria-label="Sign In"></button>
 </form>
-<p class="help">🔐 Private teacher access</p>
-</section>
-</section>
-<footer class="footer">Plan • Explore • Discover • Learn 🌟</footer>
-<div class="shelf" aria-hidden="true"></div>
 </main>
-<div class="modal-backdrop" id="errorModal" role="dialog" aria-modal="true" aria-labelledby="errorTitle">
-<div class="modal"><div class="icon" aria-hidden="true">🔐</div><h3 id="errorTitle">Teacher sign-in isn't connected yet</h3><p>This screen is a visual prototype. Secure password verification will be connected when the authentication service is configured.</p><button id="closeError" type="button">Got it</button></div>
+<div class="teacher-error-backdrop" id="errorModal" role="dialog" aria-modal="true" aria-labelledby="errorTitle">
+<div class="teacher-error-card">
+<div class="teacher-error-icon" aria-hidden="true">🔐</div>
+<h2 id="errorTitle">Teacher sign-in isn't connected yet</h2>
+<p>The login design is ready, but secure password verification still needs to be connected.</p>
+<button id="closeError" type="button">Got it</button>
+</div>
 </div>
 <script src="./script.js" defer></script>
 </body>
