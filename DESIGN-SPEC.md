@@ -72,3 +72,11 @@ Use the uploaded Dallas ISD Kindergarten Science YAG as the initial 10-unit orga
 
 ### Implementation note
 Current `index.html` and `teacher-login.html` are prototypes. Authentication, class selection, assignment unlock enforcement, database persistence, gradebook, and deployment are not yet implemented. Never describe those features as working until implemented and tested.
+
+
+## Screen 02 final-artwork update (2026-10-20)
+- Uploaded source art: `Science Lab Teacher Login.png`.
+- `teacher-login.html` displays this exact full-page image, not a recreated SVG or layout.
+- `styles.css` positions transparent interactive regions over Back to Home, password input, show/hide control, and Sign In.
+- `script.js` toggles password visibility and opens popup feedback on form submit.
+- Authentication remains a placeholder: the popup explicitly explains that secure sign-in isn't configured yet. Do not treat this form as real login.
