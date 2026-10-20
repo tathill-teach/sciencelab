@@ -128,3 +128,18 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
  .home-artwork-mode .teacher-hotspot{left:3%;width:46%}
  .home-artwork-mode .student-hotspot{left:51%;width:46%}
 }
+
+/* Home page uses the uploaded artwork as an actual image element for reliable loading. */
+.home-artwork-mode{display:block;position:relative;min-height:0;height:auto;width:100%;padding:0;margin:0;background:#fff0d8;overflow:hidden;line-height:0}
+.home-artwork-mode .home-artwork-image{display:block;width:100%;height:auto;max-width:none;margin:0;padding:0;object-fit:contain}
+.home-artwork-mode .image-portal{position:absolute;display:block;top:41%;height:53%;border:0;background:transparent;cursor:pointer;border-radius:38px;z-index:5;line-height:normal}
+.home-artwork-mode .teacher-hotspot{left:10%;width:38%}
+.home-artwork-mode .student-hotspot{left:50%;width:39%}
+.home-artwork-mode .image-portal:focus-visible{outline:5px dashed #6b3dc2;outline-offset:-9px}
+.home-artwork-mode .student-hotspot:disabled{cursor:not-allowed}
+.home-artwork-mode .artwork-caption{display:none}
+@media(max-width:760px){
+ .home-artwork-mode .image-portal{top:39%;height:57%}
+ .home-artwork-mode .teacher-hotspot{left:4%;width:45%}
+ .home-artwork-mode .student-hotspot{left:51%;width:45%}
+}
