@@ -113,3 +113,18 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
 .teacher-illustration .character{display:block;width:min(100%,300px);height:300px;object-fit:contain;filter:drop-shadow(0 7px 0 #e7a0c8)}
 .desk span{display:inline-block;margin:4px;padding:4px 7px;background:#fff0bd;border:2px solid #b87942;border-radius:7px;font-size:clamp(9px,1.2vw,14px);font-weight:1000}
 @media(max-width:760px){.teacher-illustration .character{height:190px;width:min(100%,210px)}}
+
+/* Approved full-image home screen: preserves the exact uploaded artwork. */
+.home-artwork-mode{display:block;min-height:100vh;padding:0;position:relative;background:#fff0d8 url("./Ms.%20Hill%E2%80%99s%20Colorful%20Science%20Lab.png") center top / 100% auto no-repeat;overflow:hidden}
+.home-artwork-mode .image-portal{position:absolute;display:block;top:41%;height:53%;border:0;background:transparent;cursor:pointer;border-radius:38px;z-index:5}
+.home-artwork-mode .teacher-hotspot{left:10%;width:38%}
+.home-artwork-mode .student-hotspot{left:50%;width:39%}
+.home-artwork-mode .image-portal:focus-visible{outline:5px dashed #6b3dc2;outline-offset:-9px}
+.home-artwork-mode .student-hotspot:disabled{cursor:not-allowed}
+.home-artwork-mode .artwork-caption{position:absolute;left:-9999px}
+@media(max-width:760px){
+ .home-artwork-mode{background-size:auto 100vh;background-position:center top;min-height:100vh}
+ .home-artwork-mode .image-portal{top:38%;height:57%}
+ .home-artwork-mode .teacher-hotspot{left:3%;width:46%}
+ .home-artwork-mode .student-hotspot{left:51%;width:46%}
+}
