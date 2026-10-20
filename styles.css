@@ -191,3 +191,7 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
  .teacher-password-form{left:44.5%;top:53.2%;width:41.5%;height:20%}
  .teacher-password-form input{height:39%;font-size:12px}
 }
+
+/* Fine alignment: move the real placeholder text into the artwork's printed "Enter Password" position. */
+.teacher-password-form input{padding-left:15%;padding-right:15%;text-indent:0}
+.teacher-password-form input::placeholder{color:#78859a;opacity:1;transform:translateY(0);letter-spacing:0}
