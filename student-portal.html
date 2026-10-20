@@ -149,6 +149,13 @@ main.wrap{position:fixed!important;inset:0!important;display:block!important;wid
 .portal-back{position:fixed!important;top:12px!important;left:12px!important;z-index:1000!important}
 #rosterNotice{position:fixed!important;bottom:4px!important;left:8px!important;right:8px!important;z-index:120!important;text-align:center!important}
 
+
+/* LAST OVERRIDE: center the actual poster box in the viewport. */
+html body main.wrap #chooseStudent #nameGrid.name-grid{position:fixed!important;left:0!important;top:0!important;right:0!important;bottom:0!important;width:100vw!important;height:100vh!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0!important;padding:0!important;overflow:hidden!important}
+html body main.wrap #chooseStudent #nameGrid .poster-wrap{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;transform:none!important;flex:0 0 auto!important;width:min(100vw,184.444vh)!important;height:auto!important;aspect-ratio:1660/900!important;margin:0!important;padding:0!important;overflow:visible!important}
+html body main.wrap #chooseStudent #nameGrid .name-poster{position:absolute!important;left:0!important;top:0!important;right:auto!important;bottom:auto!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:fill!important}
+html body main.wrap #chooseStudent #nameGrid .poster-hotspots{position:absolute!important;left:0!important;top:0!important;right:0!important;bottom:0!important;width:100%!important;height:100%!important}
+
 </style>
 </head>
 <body>
