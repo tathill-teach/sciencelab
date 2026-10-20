@@ -3,19 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // The Teacher card is a normal link to teacher-login.html. The Student portal is
   // intentionally disabled until the class-selection screen is implemented.
 
-  // Teacher Login screen: show/hide password toggle.
+  // Teacher Login exact-artwork page: password visibility and modal feedback.
   const password = document.getElementById('password');
   const togglePassword = document.getElementById('togglePassword');
   if (password && togglePassword) {
     togglePassword.addEventListener('click', () => {
       const showing = password.type === 'text';
       password.type = showing ? 'password' : 'text';
-      togglePassword.textContent = showing ? '👁️' : '🙈';
+      togglePassword.textContent = showing ? '◉' : '◎';
       togglePassword.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
     });
   }
 
-  // Teacher Login screen: placeholder feedback until secure authentication is connected.
   const loginForm = document.getElementById('loginForm');
   const errorModal = document.getElementById('errorModal');
   const closeErrorBtn = document.getElementById('closeError');
