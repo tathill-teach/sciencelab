@@ -27,14 +27,14 @@ h2{margin:0 0 8px;color:var(--purple);font-size:clamp(21px,4vw,30px)}
 .name-tile:active{transform:translateY(2px);box-shadow:0 2px 0 #b7a7cb}
 .name-avatar{width:66px;height:66px;display:grid;place-items:center;border:2px solid #ffffff;border-radius:17px 17px 12px 12px;background:linear-gradient(#fff5c8,#ffdb9d);font-size:43px;line-height:1;box-shadow:0 2px 0 #0001;overflow:hidden}
 .name-tile span:last-child{font-size:clamp(12px,1.4vw,16px);line-height:1.15;overflow-wrap:anywhere}
-.pad{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:10px;margin-top:18px;max-width:650px}
-.emoji{min-height:66px;font-size:clamp(26px,4vw,34px);padding:8px;border:3px solid var(--ink);border-radius:16px;background:linear-gradient(#fff,#f5eaff);cursor:pointer;box-shadow:0 4px 0 #bcb1ce;transition:transform .14s,background .14s}
-.emoji:nth-child(3n+1){background:linear-gradient(#fff,#fff0c2)}.emoji:nth-child(3n+2){background:linear-gradient(#fff,#e2f8ff)}
+.password-slots{display:grid;grid-template-columns:repeat(2,minmax(0,120px));justify-content:center;gap:18px;margin:20px auto 8px}.password-slot{height:96px;display:grid;place-items:center;border:2px dashed #b8c9ec;border-radius:18px;background:#fff;color:#c6cbe6;font-size:38px;font-weight:1000;box-shadow:inset 0 0 0 3px #fff}.password-slot.filled{border-style:solid;border-color:#7c4bd6;background:linear-gradient(#fff,#f2eaff);color:var(--ink);font-size:38px}.pad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:18px auto 0;max-width:650px}
+.emoji{min-height:72px;font-size:clamp(27px,4vw,38px);padding:7px;border:3px solid #078ff0;border-radius:17px;background:linear-gradient(#fff,#e2f8ff);cursor:pointer;box-shadow:0 3px 0 #a9cbe9;transition:transform .14s,background .14s}
+.emoji:nth-child(3n+1){background:linear-gradient(#fff,#fff0c2);border-color:#ffb900}.emoji:nth-child(3n+2){background:linear-gradient(#fff,#e2f8ff);border-color:#078ff0}.emoji:nth-child(3n){background:linear-gradient(#fff,#dfffe8);border-color:#10b96b}
 .emoji.selected{background:#ffe58b;border-color:var(--purple);outline:3px solid #d7b7ff;transform:translateY(-2px)}
 button{font:inherit;font-weight:1000}
 .primary,.back{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(#ff72b8,#ef087c);border:3px solid var(--ink);border-radius:17px;color:white;padding:13px 19px;box-shadow:0 5px 0 #a30b58,inset 0 2px #ffc8e5;text-decoration:none;cursor:pointer;text-shadow:1px 2px #a30b58}
 .back{background:linear-gradient(#c5a4ff,#7024d9);box-shadow:0 4px 0 #3e1b78;padding:10px 14px}
-.primary:disabled{opacity:.6;cursor:wait}
+.primary:disabled{opacity:.6;cursor:wait}.login-banner{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 14px;margin:0 auto 12px;max-width:760px;border:3px solid #f20b83;border-radius:999px;background:linear-gradient(110deg,#fff,#ffe5f4);box-shadow:0 4px 0 #dba4c8}.login-banner h1{margin:0;text-align:center}.login-instructions{text-align:center;font-size:clamp(15px,2vw,18px);margin:8px 0}.login-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}.back{background:linear-gradient(#ffb5db,#f20b83);box-shadow:0 4px 0 #c50b6d;color:#fff;text-shadow:none}.login-lock{font-size:clamp(34px,5vw,48px)}
 .notice{font-weight:900;min-height:24px;color:#9c1762;line-height:1.4;margin:13px 0 0}
 .login-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .selected-student{display:inline-flex;align-items:center;gap:9px;border:2px solid #c9b8e8;border-radius:999px;background:#fff;padding:8px 13px;font-weight:1000;color:var(--purple)}
@@ -42,7 +42,7 @@ button{font:inherit;font-weight:1000}
 .assignment-icon{font-size:42px}.assignment-info{flex:1}.assignment-info h2{font-size:21px;margin:0 0 5px}.assignment-info p{margin:4px 0;font-size:13px;font-weight:800;color:#655477}.status{display:inline-block;border:2px solid #159653;border-radius:999px;background:#d8ffe6;padding:6px 10px;font-size:12px;font-weight:1000;color:#087342}.status.locked{border-color:#b8a3ca;background:#f0e8fa;color:#6a557d}.open{background:linear-gradient(#ffe66c,#ffb500);color:var(--ink);border:3px solid var(--ink);border-radius:15px;padding:12px 15px;box-shadow:0 4px 0 #b87900;cursor:pointer;white-space:nowrap}.open:disabled{opacity:.55;cursor:not-allowed}
 [hidden]{display:none!important}
 @media(max-width:850px){.name-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:520px){.wrap{padding-top:14px}.name-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-tile{min-height:100px}.assignment{flex-wrap:wrap}.open{width:100%}.assignment-info{min-width:calc(100% - 70px)}.pad{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:520px){.wrap{padding-top:14px}.name-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-tile{min-height:100px}.assignment{flex-wrap:wrap}.open{width:100%}.assignment-info{min-width:calc(100% - 70px)}.pad{grid-template-columns:repeat(4,minmax(0,1fr))}.password-slot{height:80px}.login-actions{align-items:center}.login-banner{border-radius:28px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
@@ -56,14 +56,12 @@ button{font:inherit;font-weight:1000}
 <p class="notice" id="rosterNotice" role="status" aria-live="polite"></p>
 </section>
 <section class="card" id="passwordPage" hidden>
-<div class="login-top"><button class="back" id="backNames" type="button">← Back to names</button><span style="font-size:28px">🔐</span></div>
-<p class="eyebrow">SCIENTIST SIGN-IN</p>
-<h1 id="passwordHeading">Hi, scientist!</h1>
-<p class="intro">Tap your two emoji password pictures in the correct order.</p>
-<p><span class="selected-student" id="selectedStudent">🧪 Your name</span></p>
+<div class="login-banner"><span class="login-lock" aria-hidden="true">🔒</span><h1 id="passwordHeading">Let’s unlock your lab!</h1></div>
+<p class="intro login-instructions">⭐ Tap your 2 emoji code in the correct order.</p>
+<div class="password-slots" aria-label="Your two emoji password"><div class="password-slot" id="slot1">1</div><div class="password-slot" id="slot2">2</div></div>
 <div class="pad" id="pad" aria-label="Emoji password choices"></div>
-<p id="progress" class="intro" style="margin-top:14px">Choose your first emoji.</p>
-<button class="primary" id="sign" type="button">🔐 Sign In</button>
+<p id="progress" class="intro" style="margin-top:14px;text-align:center">Choose your first emoji.</p>
+<div class="login-actions"><button class="back" id="backNames" type="button">❮ Back to Names</button><span aria-hidden="true" style="font-size:32px">✨</span></div>
 <p class="notice" id="notice" role="status" aria-live="polite"></p>
 </section>
 <section class="card" id="assignments" hidden>
@@ -83,15 +81,15 @@ const API='https://cwhkswbykgpfachpcjjo.supabase.co/functions/v1/light-sort-assi
 const choices=['🐶','🚀','🦖','⭐','🦄','🌈','🚗','🐱','🦋','🍕','❤️'];
 const avatars=['👧🏾','👦🏻','👧🏻','👦🏼','👦🏾','👦🏽','👦🏻','👧🏾','👦🏿','👧🏼','👦🏿','👧🏽','👦🏽','👧🏻','👦🏼'];
 let picked=[],token='',student='',assignmentAvailable=false,students=[];
-const pad=document.getElementById('pad'),notice=document.getElementById('notice');
+const pad=document.getElementById('pad'),notice=document.getElementById('notice');let signingIn=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function draw(){pad.innerHTML=choices.map(e=>'<button type="button" class="emoji'+(picked.includes(e)?' selected':'')+'" data-e="'+e+'" aria-label="Choose '+e+'">'+e+'</button>').join('');pad.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2){picked.push(b.dataset.e);document.getElementById('progress').textContent='Password: '+picked.join('  ')+(picked.length===1?' — choose your second emoji.':' — ready to sign in!');draw();}})}
-function showPassword(name){student=name;picked=[];document.getElementById('chooseStudent').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('passwordPage').hidden=false;document.getElementById('passwordHeading').textContent='Hello, '+name+'! 👋';document.getElementById('selectedStudent').textContent='🧪 '+name;document.getElementById('progress').textContent='Choose your first emoji.';notice.textContent='';draw();window.scrollTo({top:0,behavior:'smooth'});}
+function updateSlots(){['slot1','slot2'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;el.textContent=picked[i]||String(i+1);el.classList.toggle('filled',Boolean(picked[i]));});}function draw(){pad.innerHTML=choices.map(e=>'<button type="button" class="emoji'+(picked.includes(e)?' selected':'')+'" data-e="'+e+'" aria-label="Choose '+e+'">'+e+'</button>').join('');pad.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2&&!signingIn){picked.push(b.dataset.e);updateSlots();document.getElementById('progress').textContent=picked.length===1?'Choose your second emoji.':'Checking your code…';draw();if(picked.length===2)authenticate();}})}
+function showPassword(name){student=name;picked=[];signingIn=false;document.getElementById('chooseStudent').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('passwordPage').hidden=false;document.getElementById('passwordHeading').textContent='Let’s unlock your lab!';document.getElementById('progress').textContent='Choose your first emoji.';notice.textContent='';updateSlots();draw();window.scrollTo({top:0,behavior:'smooth'});}
 function showNames(){document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('chooseStudent').hidden=false;picked=[];student='';notice.textContent='';window.scrollTo({top:0,behavior:'smooth'});}
 function renderNames(){const grid=document.getElementById('nameGrid');if(!students.length){grid.innerHTML='<p class="intro">Your teacher has not added students yet.</p>';return;}grid.innerHTML=students.map((n,i)=>'<button type="button" class="name-tile" data-name="'+esc(n)+'"><span class="name-avatar" aria-hidden="true">'+avatars[i%avatars.length]+'</span><span>'+esc(n)+'</span></button>').join('');grid.querySelectorAll('[data-name]').forEach(b=>b.addEventListener('click',()=>showPassword(b.dataset.name)));}
 async function init(){try{const r=await fetch(API,{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error||'Could not load class roster.');students=Array.isArray(d.students)?d.students:[];renderNames();const a=d.assignment||{};assignmentAvailable=Boolean(a.available);const st=document.getElementById('sortStatus');st.textContent=assignmentAvailable?'🔓 Available':'🔒 Locked or past due';st.classList.toggle('locked',!assignmentAvailable);document.getElementById('sortDue').textContent=a.due_date?'Due: '+a.due_date:'No due date set';document.getElementById('open').disabled=!assignmentAvailable;}catch(e){document.getElementById('nameGrid').innerHTML='<p class="intro">We could not load the class roster. Please refresh and try again.</p>';document.getElementById('rosterNotice').textContent=e.message;}}
 document.getElementById('backNames').onclick=showNames;
-document.getElementById('sign').onclick=async()=>{if(!student){notice.textContent='Please tap your name first.';return;}if(picked.length!==2){notice.textContent='Choose both emoji pictures in the correct order.';return;}const btn=document.getElementById('sign');btn.disabled=true;notice.textContent='Checking your emoji password…';try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error||'Could not sign in.');token=d.session_token;student=d.student_name;document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋';document.getElementById('assignmentNotice').textContent='';window.scrollTo({top:0,behavior:'smooth'});}catch(e){notice.textContent=e.message;picked=[];document.getElementById('progress').textContent='Try choosing your two emoji pictures again.';draw();}finally{btn.disabled=false;}};
+async function authenticate(){if(signingIn||picked.length!==2)return;signingIn=true;notice.textContent='Checking your emoji code…';try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error||'That code did not match. Try again!');token=d.session_token;student=d.student_name;document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋';document.getElementById('assignmentNotice').textContent='';window.scrollTo({top:0,behavior:'smooth'});}catch(e){notice.textContent='❌ '+e.message;picked=[];updateSlots();document.getElementById('progress').textContent='Try your two emoji pictures again.';draw();}finally{signingIn=false;}}
 document.getElementById('open').onclick=()=>{if(!assignmentAvailable)return;const u=new URL('./light-energy-sort.html',location.href);u.searchParams.set('student',student);u.searchParams.set('session',token);location.href=u.href;};
 draw();init();
 </script>
