@@ -162,15 +162,15 @@ html body main.wrap #chooseStudent #nameGrid .poster-hotspots{position:absolute!
 #nameGrid .poster-hotspot{pointer-events:auto!important;touch-action:manipulation!important}
 
 
-/* Password screen artwork with transparent, real emoji buttons on top. */
+/* Password illustration: place each invisible button directly over its matching emoji card. */
 #passwordPage{position:fixed!important;inset:0!important;display:block!important;width:100vw!important;height:100vh!important;margin:0!important;padding:0!important;border:0!important;background:#aaa0f6!important;overflow:hidden!important;z-index:50!important}
 #passwordPage[hidden]{display:none!important}
 .password-art{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#aaa0f6}
 .password-background{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;user-select:none;pointer-events:none}
-.password-emoji-buttons{position:absolute;left:16.0%;top:52.0%;width:68.1%;height:39.0%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:2.3% 1.5%;z-index:5}
-.password-emoji-buttons button{min-width:0;min-height:0;border:3px solid transparent;border-radius:18%;background:transparent;cursor:pointer;font-size:clamp(25px,4vw,58px);line-height:1;display:flex;align-items:center;justify-content:center;color:transparent;touch-action:manipulation}
-.password-emoji-buttons button:hover,.password-emoji-buttons button:focus-visible{outline:4px solid #fff;border-color:#f20b83;background:#ffffff28}
-.password-emoji-buttons button:active{background:#fff6}
+.password-emoji-buttons{position:absolute;inset:0;z-index:5;pointer-events:none}
+.password-emoji-buttons button{position:absolute;display:block;min-width:0;min-height:0;padding:0;border:3px solid transparent;border-radius:16%;background:transparent;cursor:pointer;color:transparent;font-size:0;line-height:1;pointer-events:auto;touch-action:manipulation}
+.password-emoji-buttons button:hover,.password-emoji-buttons button:focus-visible{outline:4px solid #fff;border-color:#f20b83;background:#ffffff18}
+.password-emoji-buttons button:active{background:#fff3}
 .password-echo{position:absolute;top:31.7%;width:15.1%;height:20%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,5vw,66px);font-weight:1000;color:#7024d9;text-shadow:0 1px #fff;pointer-events:none;z-index:4}
 #passwordEcho1{left:32.8%}#passwordEcho2{left:51.7%}
 .password-back-art{position:absolute;left:14%;bottom:2.3%;width:29%;height:13%;border:0;background:transparent;z-index:7;cursor:pointer;border-radius:28%;touch-action:manipulation}
@@ -178,8 +178,12 @@ html body main.wrap #chooseStudent #nameGrid .poster-hotspots{position:absolute!
 .password-message{position:absolute;left:22%;right:22%;bottom:1%;min-height:24px;margin:0;text-align:center;color:#5b1550;font-weight:1000;font-size:clamp(12px,1.5vw,20px);z-index:10;text-shadow:0 1px white}
 #passwordHeading,.login-banner,.login-instructions,.password-slots,.pad,.login-actions{display:none!important}
 .portal-back{display:none!important}
-@media(max-aspect-ratio:4/3){.password-background{object-fit:fill}.password-emoji-buttons{left:13%;width:74%;top:52%;height:39%;gap:2% 1%}.password-echo{width:17%}#passwordEcho1{left:31.4%}#passwordEcho2{left:52.4%}}
-
+.status.locked{border-color:#cf334d!important;background:#ffe0e5!important;color:#b4233c!important}
+.status:not(.locked){border-color:#159653!important;background:#d8ffe6!important;color:#087342!important}
+#assignments .assignment{border-color:#24123e!important}
+#assignments .assignment:has(.status.locked){background:linear-gradient(110deg,#ffe0e5,#fff 60%,#ffd1da)!important;border-color:#cf334d!important}
+#assignments .assignment:has(.status:not(.locked)){background:linear-gradient(110deg,#d8ffe6,#fff 60%,#c5f2ff)!important;border-color:#159653!important}
+@media(max-aspect-ratio:4/3){.password-background{object-fit:fill}}
 </style>
 </head>
 <body>
@@ -222,7 +226,7 @@ let picked=[],token='',student='',assignmentAvailable=false,students=[];
 const pad=document.getElementById('pad'),notice=document.getElementById('notice');let signingIn=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function updateSlots(){const a=document.getElementById('passwordEcho1'),b=document.getElementById('passwordEcho2');if(a)a.textContent=picked[0]||'1';if(b)b.textContent=picked[1]||'2';}
-function draw(){const box=document.getElementById('passwordEmojiButtons');if(!box)return;box.innerHTML=choices.map(e=>'<button type="button" data-e="'+e+'" aria-label="Choose emoji '+e+'" title="Choose '+e+'">'+e+'</button>').join('');box.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2&&!signingIn){picked.push(b.dataset.e);updateSlots();notice.textContent=picked.length===1?'Choose your second emoji.':'Checking your code…';if(picked.length===2)authenticate();}});}
+function draw(){const box=document.getElementById('passwordEmojiButtons');if(!box)return;const areas=[[15.7,51.7,10.6,16.5],[27.8,51.7,10.5,16.5],[39.0,51.7,10.5,16.5],[50.5,51.7,10.5,16.5],[61.8,51.7,10.5,16.5],[73.0,51.7,10.5,16.5],[20.4,69.1,10.6,16.3],[32.5,69.1,10.5,16.3],[44.5,69.1,10.5,16.3],[56.6,69.1,10.5,16.3],[68.5,69.1,10.5,16.3]];box.innerHTML=choices.map((e,i)=>'<button type="button" data-e="'+e+'" aria-label="Choose emoji '+e+'" title="Choose '+e+'" style="left:'+areas[i][0]+'%;top:'+areas[i][1]+'%;width:'+areas[i][2]+'%;height:'+areas[i][3]+'%"></button>').join('');box.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2&&!signingIn){picked.push(b.dataset.e);updateSlots();notice.textContent=picked.length===1?'Choose your second emoji.':'Checking your code…';if(picked.length===2)authenticate();}});}
 function showPassword(name){student=name;picked=[];signingIn=false;document.getElementById('chooseStudent').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('passwordPage').hidden=false;notice.textContent='Choose your first emoji.';updateSlots();draw();window.scrollTo({top:0,behavior:'smooth'});}
 function showNames(){document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('chooseStudent').hidden=false;picked=[];student='';notice.textContent='';window.scrollTo({top:0,behavior:'smooth'});}
 function renderNames(){const grid=document.getElementById('nameGrid');if(!students.length){grid.innerHTML='<p class="intro">Your teacher has not added students yet.</p>';return;}grid.innerHTML='<div class="poster-wrap"><img class="name-poster" src="./Explore%20Together_%20Choose%20Your%20Name.png" alt="Who’s ready to explore? Tap your name to continue!" draggable="false"><div class="poster-hotspots" id="posterHotspots" aria-label="Choose your name"></div></div>';const hotspots=grid.querySelector('#posterHotspots');const expected=[['Lucy','Lucy Hammer'],['James S','James Selkirk'],['Jenna','Jenna Jonson'],['Owen','Owen Alspach'],['Nicholas','Nicholas Luna'],['Guhan','Guhan Aroul'],['James L','James Leibarth'],['Ruby','Ruby Rodriguez'],['Zedek','Zedek Lobo'],['Eleanor','Eleanor Pelletier'],['Eli','Eli Hamilton'],['Eliana','Eliana Ayala'],['Cecilio','Cecilio Puentes'],['Elise','Elise Arrieta'],['Casper','Casper Kamali']];const rects=[[13.2,26.5,14.6,20.3],[28.2,26.5,14.2,20.3],[43.0,26.5,14.2,20.3],[57.8,26.5,14.0,20.3],[72.6,26.5,14.0,20.3],[13.2,47.8,14.6,20.3],[28.2,47.8,14.2,20.3],[43.0,47.8,14.2,20.3],[57.8,47.8,14.0,20.3],[72.6,47.8,14.0,20.3],[13.2,69.4,14.6,20.3],[28.2,69.4,14.2,20.3],[43.0,69.4,14.2,20.3],[57.8,69.4,14.0,20.3],[72.6,69.4,14.0,20.3]];students.forEach(n=>{const normalized=String(n).trim().toLowerCase();const slot=expected.findIndex(names=>names.some(alias=>normalized===alias.toLowerCase())||normalized.startsWith(names[0].toLowerCase()+' '));if(slot<0)return;const [left,top,width,height]=rects[slot],b=document.createElement('button');b.type='button';b.className='poster-hotspot';b.style.left=left+'%';b.style.top=top+'%';b.style.width=width+'%';b.style.height=height+'%';b.setAttribute('aria-label','Choose '+expected[slot][0]);b.title='Choose '+expected[slot][0];b.addEventListener('click',()=>showPassword(n));hotspots.appendChild(b);});}
