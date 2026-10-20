@@ -1,36 +1,7 @@
 /* Science Lab shared interactions. Page-specific features initialize only when present. */
 document.addEventListener('DOMContentLoaded', () => {
-  // Home screen: teacher placeholder modal.
-  const teacherBtn = document.getElementById('teacherBtn');
-  const teacherModal = document.getElementById('teacherModal');
-  const closeModalBtn = document.getElementById('closeModal');
-  const confirmModalBtn = document.getElementById('confirmModal');
-  if (teacherBtn && teacherModal) {
-    teacherBtn.addEventListener('click', () => {
-      teacherModal.classList.add('open');
-      if (closeModalBtn) closeModalBtn.focus();
-    });
-    const closeTeacherModal = () => {
-      teacherModal.classList.remove('open');
-      teacherBtn.focus();
-    };
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeTeacherModal);
-    if (confirmModalBtn) confirmModalBtn.addEventListener('click', () => {
-      window.alert('Teacher authentication will be connected when the secure login service is configured.');
-      closeTeacherModal();
-    });
-    teacherModal.addEventListener('click', event => {
-      if (event.target === teacherModal) closeTeacherModal();
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && teacherModal.classList.contains('open')) closeTeacherModal();
-    });
-  }
-
-  const studentBtn = document.getElementById('studentBtn');
-  if (studentBtn) studentBtn.addEventListener('click', () => {
-    window.alert('The Student portal will open to class selection after that screen is built.');
-  });
+  // The Teacher card is a normal link to teacher-login.html. The Student portal is
+  // intentionally disabled until the class-selection screen is implemented.
 
   // Teacher Login screen: show/hide password toggle.
   const password = document.getElementById('password');
