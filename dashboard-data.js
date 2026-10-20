@@ -110,7 +110,8 @@
         const button = event.target.closest('[data-open-unit]');
         if (!button) return;
         const unit = units.find(item => item.id === button.dataset.openUnit);
-        if (unit) notice(unit.title + ' is saved. Lesson creation is the next feature to connect.');
+        if (unit && unit.title === 'Energy') { window.location.href = './lesson-light-energy.html'; return; }
+        if (unit) notice(unit.title + ' is saved. Lessons for this unit will be added as you build them.');
       };
     } catch (error) {
       console.error('Science Lab unit library:', error);
