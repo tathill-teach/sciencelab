@@ -54,6 +54,15 @@ button{font:inherit;font-weight:1000}
 #chooseStudent{width:100%;min-height:calc(100vh - 130px);background:transparent;border:0;box-shadow:none;padding:0;margin-top:18px}
 #chooseStudent .notice{background:#ffffffdc;border-radius:12px;padding:6px}
 
+
+/* Student poster layout: keep the whole illustration centered and large. */
+#nameGrid.name-grid{display:block;width:100%;margin:14px auto 0}
+.poster-wrap{display:block;width:min(100%,calc(100vh - 225px));max-width:900px;margin:0 auto;line-height:0;position:relative}
+.name-poster{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.poster-hotspots{position:absolute;inset:0;z-index:5}
+.poster-hotspot{z-index:6;touch-action:manipulation}
+@media(max-width:700px){#nameGrid.name-grid{margin-top:10px}.poster-wrap{width:min(100%,calc(100vh - 190px));max-width:100%}}
+
 </style>
 </head>
 <body>
