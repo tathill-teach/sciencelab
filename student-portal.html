@@ -10,7 +10,7 @@
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;background:#c9f1ff;background-image:radial-gradient(circle at 8% 10%,#fff 0 3px,transparent 4px),radial-gradient(circle at 92% 22%,#ffd94d 0 4px,transparent 5px),radial-gradient(circle at 18% 35%,#fff8 0 5px,transparent 6px),linear-gradient(180deg,#9feaff 0,#e7faff 60%,#c9efff 100%);background-attachment:fixed}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 0% 50%,#80d9ff55 0 12%,transparent 26%),radial-gradient(ellipse at 100% 45%,#ffe58b66 0 12%,transparent 27%)}
-.wrap{width:min(1160px,96%);margin:auto;padding:24px 0 38px}
+.wrap{width:min(1600px,99%);margin:auto;padding:12px 0 18px}
 .brand{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;background:linear-gradient(145deg,#fff,#ffe7f6);border:3px solid var(--ink);border-radius:18px;box-shadow:0 4px 0 #bcb1ce;text-decoration:none;color:var(--pink);font-weight:1000;font-size:clamp(17px,3vw,23px);text-shadow:1px 2px #fff}
 .card{background:linear-gradient(145deg,#ffffffef,#effbffef);border:4px solid #fff;border-radius:32px;padding:clamp(18px,3vw,28px);margin-top:18px;box-shadow:0 8px 0 #a4cbe6,inset 0 0 0 2px #c6eaff}
 .eyebrow{font-size:11px;font-weight:1000;letter-spacing:1.6px;color:var(--purple);margin:0 0 7px}
@@ -41,17 +41,17 @@ button{font:inherit;font-weight:1000}
 .assignment{display:flex;gap:14px;align-items:center;border:3px solid var(--ink);border-radius:22px;padding:18px;margin-top:15px;background:linear-gradient(110deg,#c5f2ff,#fff 60%,#ffe4f3);box-shadow:0 4px 0 #bdb2c9}
 .assignment-icon{font-size:42px}.assignment-info{flex:1}.assignment-info h2{font-size:21px;margin:0 0 5px}.assignment-info p{margin:4px 0;font-size:13px;font-weight:800;color:#655477}.status{display:inline-block;border:2px solid #159653;border-radius:999px;background:#d8ffe6;padding:6px 10px;font-size:12px;font-weight:1000;color:#087342}.status.locked{border-color:#b8a3ca;background:#f0e8fa;color:#6a557d}.open{background:linear-gradient(#ffe66c,#ffb500);color:var(--ink);border:3px solid var(--ink);border-radius:15px;padding:12px 15px;box-shadow:0 4px 0 #b87900;cursor:pointer;white-space:nowrap}.open:disabled{opacity:.55;cursor:not-allowed}
 [hidden]{display:none!important}
-@media(max-width:850px){.name-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:520px){.wrap{padding-top:14px}.name-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-tile{min-height:100px}.assignment{flex-wrap:wrap}.open{width:100%}.assignment-info{min-width:calc(100% - 70px)}.pad{grid-template-columns:repeat(4,minmax(0,1fr))}.password-slot{height:80px}.login-actions{align-items:center}.login-banner{border-radius:28px}}
+@media(max-width:850px){.name-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.poster-wrap{width:100%;margin-top:12px}.name-poster{max-height:none}}}
+@media(max-width:520px){.wrap{width:100%;padding:8px 0 12px}.brand{margin-left:8px}.poster-wrap{border-radius:12px}.name-poster{max-height:none}#chooseStudent{min-height:auto}}.name-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-tile{min-height:100px}.assignment{flex-wrap:wrap}.open{width:100%}.assignment-info{min-width:calc(100% - 70px)}.pad{grid-template-columns:repeat(4,minmax(0,1fr))}.password-slot{height:80px}.login-actions{align-items:center}.login-banner{border-radius:28px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 
-.poster-wrap{position:relative;width:100%;max-width:1000px;margin:22px auto 0;line-height:0;border-radius:20px;overflow:hidden}
-.name-poster{display:block;width:100%;height:auto;user-select:none}
+.poster-wrap{position:relative;width:100%;max-width:none;margin:18px auto 0;line-height:0;border-radius:22px;overflow:hidden;box-shadow:0 7px 0 #a4cbe6}
+.name-poster{display:block;width:100%;height:auto;max-height:calc(100vh - 125px);object-fit:contain;user-select:none}
 .poster-hotspots{position:absolute;inset:0}
 .poster-hotspot{position:absolute;display:block;border:0;background:transparent;border-radius:18px;cursor:pointer;line-height:normal;padding:0;outline-offset:3px;transition:background .14s,box-shadow .14s}
 .poster-hotspot:hover,.poster-hotspot:focus-visible{background:#ffffff18;box-shadow:inset 0 0 0 3px #fff,0 0 0 3px #f20b83;outline:none}
 .poster-hotspot:active{background:#ffffff35}
-#chooseStudent{background:transparent;border:0;box-shadow:none;padding:0;margin-top:18px}
+#chooseStudent{width:100%;min-height:calc(100vh - 130px);background:transparent;border:0;box-shadow:none;padding:0;margin-top:18px}
 #chooseStudent .notice{background:#ffffffdc;border-radius:12px;padding:6px}
 
 </style>
