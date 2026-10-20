@@ -151,3 +151,32 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
 @media(max-width:760px){
   .home-artwork-mode .image-portal{top:44%;height:52%}
 }
+
+/* Teacher Login exact approved full-image design with real form controls layered on top. */
+.teacher-artwork-page{margin:0;padding:0;background:#f5eddd;min-height:100vh;overflow-x:hidden}
+.teacher-artwork-shell{position:relative;width:100%;max-width:1536px;margin:0 auto;line-height:0}
+.teacher-login-artwork{display:block;width:100%;height:auto;max-width:none}
+.teacher-back-hotspot{position:absolute;left:1.2%;top:2%;width:17%;height:8%;border-radius:999px;z-index:3;background:transparent;display:block}
+.teacher-back-hotspot:focus-visible{outline:4px dashed #6b3dc2;outline-offset:2px}
+.teacher-password-form{position:absolute;left:44.5%;top:68.4%;width:41.5%;height:21%;z-index:4;margin:0;line-height:normal}
+.teacher-password-form input{position:absolute;left:0;top:0;width:100%;height:35%;border:0;border-radius:999px;background:rgba(255,255,255,.02);padding:0 17% 0 15%;font:800 clamp(13px,1.6vw,23px) "Trebuchet MS",Arial,sans-serif;color:#272044;outline:none;box-shadow:none}
+.teacher-password-form input::placeholder{color:transparent}
+.teacher-password-form input:focus{outline:4px solid #8d59ca;outline-offset:1px;box-shadow:none}
+.teacher-toggle-password{position:absolute;right:4%;top:2%;width:10%;height:31%;padding:0;border:0;background:transparent;cursor:pointer;color:transparent;font-size:0}
+.teacher-toggle-password:after{content:"";position:absolute;inset:0}
+.teacher-toggle-password:focus-visible{outline:3px dashed #6034af;border-radius:50%}
+.teacher-signin-hotspot{position:absolute;left:0;top:45%;width:100%;height:44%;padding:0;border:0;border-radius:999px;background:transparent;cursor:pointer}
+.teacher-signin-hotspot:hover{background:#ffffff14}
+.teacher-signin-hotspot:focus-visible{outline:4px dashed #6b3dc2;outline-offset:-3px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.teacher-error-backdrop{display:none;position:fixed;inset:0;z-index:100;background:#211536a8;align-items:center;justify-content:center;padding:18px;line-height:normal}
+.teacher-error-backdrop.open{display:flex}
+.teacher-error-card{width:min(430px,100%);padding:28px;background:#fff6fc;border:6px solid #ff72b3;border-radius:28px;text-align:center;box-shadow:0 10px 0 #67254f;color:#272044}
+.teacher-error-icon{font-size:44px}
+.teacher-error-card h2{font-size:27px;color:#a51d61;margin:9px 0}
+.teacher-error-card p{font-weight:700;line-height:1.45}
+.teacher-error-card button{border:0;border-radius:999px;background:#e92987;color:white;padding:13px 28px;font-size:17px;font-weight:1000;cursor:pointer}
+@media(max-width:700px){
+ .teacher-password-form{left:44.5%;top:68.4%;width:41.5%;height:21%}
+ .teacher-password-form input{font-size:12px;padding-left:14%;padding-right:15%}
+}
