@@ -195,3 +195,10 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
 /* Fine alignment: move the real placeholder text into the artwork's printed "Enter Password" position. */
 .teacher-password-form input{padding-left:15%;padding-right:15%;text-indent:0}
 .teacher-password-form input::placeholder{color:#78859a;opacity:1;transform:translateY(0);letter-spacing:0}
+
+/* Hide the words baked into the image underneath the live password input. */
+.teacher-password-form input{
+  background:rgba(255,255,255,.97)!important;
+  border:2px solid #ead5ef!important;
+  box-sizing:border-box;
+}
