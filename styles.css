@@ -97,3 +97,14 @@ input:focus{border-color:#7236bf;box-shadow:0 0 0 4px #d9c4ff}
 .footer{margin-top:26px;font-weight:900;color:#69418a;text-align:center}
 @media(max-width:760px){.scene{padding:12px 12px 26px}.logo{margin:18px 0}.layout{grid-template-columns:1fr;max-width:520px;gap:18px}.teacher-illustration{min-height:230px}.teacher-illustration .character{font-size:120px}.desk{padding:8px}.caption{display:none}.login{padding:28px 20px;border-radius:30px}.login .intro{margin-bottom:18px}.window{height:18%;width:25%}.back{font-size:15px;padding:10px 15px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Home screen illustration refinements: use custom vector artwork, not emoji characters. */
+.poster-rainbow{display:block;width:46px;height:24px;margin:0 auto}
+.plant-art{position:absolute;right:2%;bottom:8%;width:clamp(48px,7vw,95px);filter:drop-shadow(0 4px 0 #a15a2c)}
+.lab-science svg,.magnify svg{width:100%;height:100%;display:block}
+.teacher-art{display:block;width:min(100%,250px);height:245px;object-fit:contain;filter:drop-shadow(0 7px 0 #e7a0c8)}
+.student-art{display:block;width:min(100%,430px);height:205px;object-fit:contain;filter:drop-shadow(0 5px 0 #86cbee)}
+.cta{box-sizing:border-box}
+.cta:disabled{cursor:not-allowed;filter:saturate(.72);opacity:.78;transform:none}
+.cta:disabled:hover{transform:none;filter:saturate(.72)}
+@media(max-width:760px){.teacher-art{height:185px;width:min(100%,210px)}.student-art{height:150px;width:min(100%,360px)}}
