@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6b3dc2">
+<title>Science Lab — Explore • Experiment • Discover • Learn</title>
+<style>
+:root{--purple:#6b3dc2;--pink:#ff4d9b;--pink-dark:#bc246d;--blue:#28a9f2;--blue-dark:#1268ba;--ink:#27204a;--cream:#fff9ec}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#c8efff 0%,#e8f7ff 30%,#fff0d8 74%,#f4d4ff 100%);overflow-x:hidden}
+.classroom{min-height:100vh;position:relative;isolation:isolate;padding:24px clamp(14px,4vw,54px) 36px;display:flex;flex-direction:column;align-items:center}
+.window-glow{position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 5%,#fff 0,transparent 45%),linear-gradient(90deg,#d3f1ff40,transparent 30%,transparent 70%,#d3f1ff40)}
+.shelf{position:absolute;z-index:-1;bottom:0;height:32%;width:100%;background:linear-gradient(180deg,#cc884b 0,#a95d2f 12%,#e4a465 14%,#c87e44 100%);border-top:9px solid #f8c17a;box-shadow:inset 0 10px 0 #9a542b}
+.shelf:before{content:"";position:absolute;top:-9px;left:0;right:0;height:9px;background:#f7c47f;box-shadow:0 5px 0 #aa683b}
+.window{position:absolute;z-index:-1;top:0;width:24%;height:29%;background:linear-gradient(#a6e4ff,#e4f9ff);border:10px solid #9e6b45;border-top:0;box-shadow:inset 0 0 0 5px #fff7df}
+.window.left{left:0}.window.right{right:0}
+.window:before,.window:after{content:"";position:absolute;background:#fff7df}
+.window:before{width:8px;top:0;bottom:0;left:50%;transform:translateX(-50%)}
+.window:after{height:8px;left:0;right:0;top:48%}
+.poster{position:absolute;right:2.5%;top:8%;width:13%;height:17%;background:#fff6d8;border:6px solid #b87942;border-radius:6px;display:grid;place-items:center;text-align:center;font-weight:1000;color:#3285a9;transform:rotate(2deg);box-shadow:0 4px 0 #874a2a}
+.poster span{font-size:clamp(10px,1.3vw,19px);line-height:1.25}
+.books{position:absolute;left:1.5%;bottom:8%;width:16%;display:flex;flex-direction:column;gap:4px;transform:rotate(-2deg)}
+.book{height:30px;border:3px solid #94512c;border-radius:6px 10px 10px 6px;box-shadow:0 4px 0 #a05a32;display:flex;align-items:center;padding-left:12px;font-size:clamp(10px,1vw,15px);font-weight:1000;color:#312047}
+.book:nth-child(1){background:#ff65a6}.book:nth-child(2){background:#ffbe48}.book:nth-child(3){background:#53d18a}.book:nth-child(4){background:#39b9ff}
+.plant{position:absolute;right:2%;bottom:8%;font-size:clamp(40px,6vw,80px);filter:drop-shadow(0 4px 0 #a15a2c)}
+.brand{width:min(820px,100%);text-align:center;background:linear-gradient(#bd914b,#e9be72);border:8px solid #8b552c;border-radius:36px;padding:16px 24px 18px;box-shadow:0 8px 0 #774526,0 12px 0 #f4d69a,inset 0 0 0 4px #ffe4a1;position:relative;margin:10px 0 30px}
+.brand:before,.brand:after{content:"⭐";position:absolute;font-size:clamp(24px,4vw,42px);top:8px}
+.brand:before{left:14px}.brand:after{right:14px}
+.brand h1{margin:0;color:#fff;font-size:clamp(39px,7.5vw,86px);line-height:1.02;font-weight:1000;letter-spacing:-3px;-webkit-text-stroke:2px #291b52;text-shadow:0 5px 0 #291b52,3px 8px 0 #281947}
+.brand h1 .science{background:linear-gradient(90deg,#ff3897,#ff7b30,#ffd333,#4dc85b,#24b9f4,#7b52ef);color:transparent;background-clip:text;-webkit-background-clip:text;-webkit-text-stroke:2px #fff}
+.motto{display:inline-block;margin-top:15px;background:#fff4cf;border:3px solid #b7783e;border-radius:999px;padding:7px 20px;font-weight:1000;font-size:clamp(12px,1.6vw,18px);box-shadow:0 3px 0 #94572f;letter-spacing:.3px}
+.lab-science{position:absolute;left:24px;top:-12px;font-size:clamp(27px,4vw,44px);transform:rotate(-12deg)}
+.magnify{position:absolute;right:24px;bottom:15px;font-size:clamp(28px,4.5vw,53px);transform:rotate(12deg)}
+.portal-row{width:min(1120px,100%);display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,34px);align-items:stretch}
+.portal{border:6px solid;border-radius:38px;min-height:470px;padding:18px clamp(12px,2vw,24px) 24px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 0 #593d6a22,0 15px 26px #3a306022;transition:transform .2s,box-shadow .2s}
+.portal:hover{transform:translateY(-5px);box-shadow:0 15px 0 #593d6a20,0 20px 32px #3a306028}
+.teacher{background:linear-gradient(180deg,#fff4fb,#ffd7eb);border-color:#ff72b5;outline:3px dashed #ffa2cf;outline-offset:-14px}
+.student{background:linear-gradient(180deg,#ecfaff,#bceaff);border-color:#41bafa;outline:3px dashed #8bdbff;outline-offset:-14px}
+.illustration{width:100%;height:250px;display:grid;place-items:center;position:relative}
+.teacher-art{font-size:clamp(105px,13vw,166px);line-height:1;filter:drop-shadow(0 7px 0 #eaa0c8)}
+.student-art{display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0;font-size:clamp(54px,6vw,80px);line-height:1.08;filter:drop-shadow(0 5px 0 #86cbee)}
+.art-caption{position:absolute;bottom:8px;background:#fff;border:3px solid #ffd1e5;border-radius:14px;padding:5px 12px;font-size:14px;font-weight:900}
+.student .art-caption{border-color:#b6e9ff}
+.portal h2{font-size:clamp(32px,4.2vw,50px);margin:3px 0 5px;font-weight:1000;letter-spacing:-1px;text-shadow:0 3px 0 #ffffff;line-height:1.1}
+.teacher h2{color:var(--pink-dark)}.student h2{color:var(--blue-dark)}
+.portal p{font-weight:800;font-size:clamp(15px,1.8vw,20px);margin:5px 0 17px;line-height:1.35}
+.cta{margin-top:auto;border:4px solid #fff;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:12px;min-height:64px;width:min(100%,330px);text-decoration:none;color:white;font:1000 clamp(19px,2.5vw,28px) "Trebuchet MS",Arial,sans-serif;cursor:pointer;box-shadow:0 5px 0 #0002;transition:transform .14s,filter .14s}
+.cta:hover{transform:translateY(-2px);filter:brightness(1.05)}.cta:focus-visible{outline:4px solid #342268;outline-offset:4px}
+.teacher .cta{background:linear-gradient(#ff59a4,#e82e83);box-shadow:0 5px 0 #ac225f}.student .cta{background:linear-gradient(#34bbff,#1477d5);box-shadow:0 5px 0 #14539a}
+.lock-note{font-size:14px;font-weight:900;margin-top:15px;line-height:1.35}.teacher .lock-note{color:#8b2354}.student .lock-note{color:#14558c}
+.floating{position:absolute;z-index:-1;font-size:clamp(25px,3.7vw,48px);filter:drop-shadow(0 3px 0 #e6b86e)}
+.f1{left:3%;top:35%}.f2{left:21%;top:52%}.f3{right:3%;top:42%}.f4{right:19%;top:57%}
+.footer{margin-top:35px;text-align:center;font-weight:900;color:#69418a;font-size:15px;text-shadow:0 1px #fff}
+.modal-backdrop{position:fixed;inset:0;background:#211536a8;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(450px,100%);background:#fff8fd;border:6px solid #ff78b8;border-radius:28px;box-shadow:0 10px 0 #662a51;padding:28px;text-align:center}
+.modal h3{font-size:30px;margin:4px 0 8px;color:#a82065}
+.modal p{line-height:1.45;font-weight:700}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions button{flex:1;border:0;border-radius:15px;padding:13px;font-size:17px;font-weight:900;cursor:pointer}
+.primary{background:#ef3d8d;color:white}.secondary{background:#eadcfb;color:#4e2a7b}
+@media(max-width:760px){.classroom{padding:15px 12px 26px}.brand{margin-bottom:23px;padding:17px 12px}.brand h1{letter-spacing:-1.5px}.brand:before{left:7px}.brand:after{right:7px}.lab-science{left:8px;top:-16px}.magnify{right:8px;bottom:8px}.portal-row{grid-template-columns:1fr;max-width:500px;gap:18px}.portal{min-height:0;padding:18px 20px 22px}.illustration{height:200px}.teacher-art{font-size:120px}.student-art{font-size:59px}.portal p{margin-bottom:15px}.books,.poster,.plant{opacity:.38}.window{height:20%;width:24%}.footer{margin-top:25px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="classroom">
+<div class="window-glow"></div><div class="window left"></div><div class="window right"></div>
+<div class="poster"><span>CURIOUS MINDS<br>KINDER SCIENTISTS<br>BRIGHT FUTURES 🌈</span></div>
+<div class="books" aria-hidden="true"><div class="book">EXPLORE</div><div class="book">EXPERIMENT</div><div class="book">DISCOVER</div><div class="book">LEARN</div></div>
+<div class="plant" aria-hidden="true">🪴</div>
+<div class="floating f1" aria-hidden="true">🧪</div><div class="floating f2" aria-hidden="true">⭐</div><div class="floating f3" aria-hidden="true">🔬</div><div class="floating f4" aria-hidden="true">🌟</div>
+<header class="brand">
+<div class="lab-science" aria-hidden="true">🧪</div>
+<h1><span class="small">SCIENCE</span><br><span class="science">LAB</span></h1>
+<div class="motto">EXPLORE <span style="color:#ff4d9b">•</span> EXPERIMENT <span style="color:#52b96d">•</span> DISCOVER <span style="color:#258be1">•</span> LEARN</div>
+<div class="magnify" aria-hidden="true">🔎</div>
+</header>
+<section class="portal-row" aria-label="Choose your portal">
+<article class="portal teacher">
+<div class="illustration">
+<div class="teacher-art" role="img" aria-label="Cartoon teacher">👩🏽‍🏫</div>
+<div class="art-caption">Your teacher workspace</div>
+</div>
+<h2>Teacher</h2>
+<p>Create · Assign · Grade · Manage</p>
+<button class="cta" id="teacherBtn" type="button">Teacher Login <span aria-hidden="true">➜</span></button>
+<div class="lock-note">🔒 Password protected access</div>
+</article>
+<article class="portal student">
+<div class="illustration">
+<div class="student-art" role="img" aria-label="A diverse group of cartoon students"><span>👦🏻</span><span>👦🏿</span><span>👧🏼</span><span>👧🏽</span><span>👦🏻</span></div>
+<div class="art-caption">Your science missions await!</div>
+</div>
+<h2>Student</h2>
+<p>Choose your class and name<br>to open your science activities</p>
+<button class="cta" id="studentBtn" type="button">Student Portal <span aria-hidden="true">➜</span></button>
+<div class="lock-note">🔬 Explore · Experiment · Discover</div>
+</article>
+</section>
+<footer class="footer">A world of wonder is waiting for you! ✨</footer>
+<div class="shelf"></div>
+</main>
+<div class="modal-backdrop" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal">
+<div style="font-size:44px" aria-hidden="true">🔐</div>
+<h3 id="modalTitle">Teacher Login</h3>
+<p>The private teacher workspace will open after secure sign-in is configured.</p>
+<div class="modal-actions"><button class="secondary" id="closeModal" type="button">Back</button><button class="primary" id="confirmModal" type="button">Continue</button></div>
+</div>
+</div>
+<script>
+const modal=document.getElementById('teacherModal');
+document.getElementById('teacherBtn').addEventListener('click',()=>{modal.classList.add('open');document.getElementById('closeModal').focus()});
+function closeTeacherModal(){modal.classList.remove('open');document.getElementById('teacherBtn').focus()}
+document.getElementById('closeModal').addEventListener('click',closeTeacherModal);
+document.getElementById('confirmModal').addEventListener('click',()=>{alert('Teacher authentication will be connected when the secure login screen is built.');closeTeacherModal()});
+modal.addEventListener('click',e=>{if(e.target===modal)closeTeacherModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeTeacherModal()});
+document.getElementById('studentBtn').addEventListener('click',()=>{alert('The Student portal will open to class selection after the next screen is built.')});
+</script>
+</body>
+</html>
