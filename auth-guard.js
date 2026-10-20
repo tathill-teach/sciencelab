@@ -16,7 +16,8 @@
       return;
     }
     window.SCIENCE_LAB_AUTH_CLIENT = client;
-    const profileName = data.session.user.user_metadata?.display_name || data.session.user.email || 'Teacher';
+    window.dispatchEvent(new Event('science-lab-auth-ready'));
+    const profileName = data.session.user.user_metadata?.display_name || 'Teacher';
     const nameNode = document.querySelector('.profile-chip b');
     if (nameNode) nameNode.textContent = profileName;
     reveal();
