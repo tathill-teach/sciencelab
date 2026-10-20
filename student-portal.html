@@ -1,5 +1,100 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Science Lab Student Portal</title><style>
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#d8f5ff,#fff0d8,#eadcff);font-family:"Trebuchet MS",Arial,sans-serif;color:#29164b}.wrap{width:min(850px,94%);margin:auto;padding:24px 0}.card{background:#fff;border:3px solid #29164b;border-radius:24px;padding:clamp(20px,5vw,36px);margin-top:24px;box-shadow:0 8px 0 #c5b4e4}h1{font-size:clamp(2rem,5vw,3rem);margin:.3em 0}label{display:block;font-weight:900;margin:18px 0 8px}select{width:100%;padding:14px;border:2px solid #c8b5e8;border-radius:12px;font:inherit;font-weight:800}.pad{display:grid;grid-template-columns:repeat(auto-fit,minmax(54px,1fr));gap:9px;margin-top:14px}.emoji{font-size:30px;padding:8px;border:2px solid #cbb8e8;border-radius:13px;background:#fff;cursor:pointer}.emoji.selected{background:#ffe58b;border:3px solid #6b3dc2}button{font:inherit;font-weight:900;border:0;border-radius:12px;padding:13px 18px;cursor:pointer}.primary{background:#6b3dc2;color:white;margin-top:16px}.notice{font-weight:800;min-height:24px;color:#9c1762}.assignment{display:flex;gap:14px;align-items:center;border:2px solid #d8c7f3;border-radius:18px;padding:18px;margin-top:14px}.open{margin-left:auto;background:#ffe28a;color:#29164b}@media(max-width:580px){.assignment{flex-wrap:wrap}.open{width:100%;margin:0}}
-</style></head><body><main class="wrap"><a href="./index.html" style="text-decoration:none;color:inherit;font-weight:900;font-size:1.3rem">⚗️ Science Lab · Student Portal</a><section class="card" id="login"><p style="font-weight:900;color:#6b3dc2;letter-spacing:.1em">WELCOME, YOUNG SCIENTIST!</p><h1>Ready to explore? 🔎</h1><p>Choose your name, then enter the same two emoji password you use for Dojo Mart.</p><label for="name">Your name</label><select id="name"><option>Loading class roster…</option></select><p><b>Tap your two emojis in the correct order</b></p><div class="pad" id="pad"></div><p id="progress">Choose your first emoji.</p><button class="primary" id="sign">🔐 Sign In</button><p class="notice" id="notice"></p></section><section class="card" id="assignments" hidden><p style="font-weight:900;color:#6b3dc2">YOUR ASSIGNMENTS</p><h1 id="welcome">My Assignments</h1><div class="assignment"><span style="font-size:2.5rem">🔦</span><div><h2 style="margin:0 0 5px">Light Detective Sort-It!</h2><p>Light energy · 12 questions · Graded</p><b id="sortStatus">Checking availability…</b><p id="sortDue" style="margin-top:6px"></p></div><button class="open" id="open" disabled>Open Assignment →</button></div></section></main><script>
-const API='https://cwhkswbykgpfachpcjjo.supabase.co/functions/v1/light-sort-assignment',choices=['🐶','🚀','🦖','⭐','🦄','🌈','🚗','🐱','🦋','🍕','❤️'];let picked=[],token='',student='',assignmentAvailable=false;const pad=document.getElementById('pad'),name=document.getElementById('name'),notice=document.getElementById('notice');function draw(){pad.innerHTML=choices.map(e=>'<button class="emoji'+(picked.includes(e)?' selected':'')+'" data-e="'+e+'">'+e+'</button>').join('');pad.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2){picked.push(b.dataset.e);document.getElementById('progress').textContent='Password: '+picked.join('  ')+(picked.length===1?' — choose your second emoji.':'');draw();}})}async function init(){try{let r=await fetch(API,{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error);name.innerHTML='<option value="">Choose your name…</option>'+d.students.map(n=>'<option>'+n.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</option>').join('');const a=d.assignment||{};assignmentAvailable=Boolean(a.available);document.getElementById('sortStatus').textContent=assignmentAvailable?'Available':'🔒 Locked or past due';document.getElementById('sortDue').textContent=a.due_date?'Due: '+a.due_date:'No due date set';document.getElementById('open').disabled=!assignmentAvailable}catch(e){notice.textContent='Could not load the class roster. Please try again.'}}document.getElementById('sign').onclick=async()=>{student=name.value;if(!student){notice.textContent='Choose your name first.';return}if(picked.length!==2){notice.textContent='Choose both emojis in the correct order.';return}try{let r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error);token=d.session_token;student=d.student_name;document.getElementById('login').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋'}catch(e){notice.textContent=e.message;picked=[];draw()}};document.getElementById('open').onclick=()=>{if(!assignmentAvailable)return;let u=new URL('./light-energy-sort.html',location.href);u.searchParams.set('student',student);u.searchParams.set('session',token);location.href=u.href};draw();init();
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6b3dc2">
+<title>Science Lab · Student Portal</title>
+<style>
+:root{--ink:#24123e;--purple:#7024d9;--pink:#f20b83;--blue:#078ff0;--yellow:#ffca22;--green:#10b96b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;background:#fff1d5;background-image:radial-gradient(circle at 8% 10%,#fff 0 3px,transparent 4px),radial-gradient(circle at 92% 22%,#ffd94d 0 4px,transparent 5px),linear-gradient(180deg,#9feaff 0,#dff8ff 19%,#fff2d5 50%,#ffdfb7 100%);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,#ffbd4d22 0 8%,transparent 8% 92%,#ffbd4d22 92%);border-bottom:12px solid #a95b27}
+.wrap{width:min(1050px,94%);margin:auto;padding:22px 0 38px}
+.brand{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;background:linear-gradient(145deg,#fff,#ffe7f6);border:3px solid var(--ink);border-radius:18px;box-shadow:0 4px 0 #bcb1ce;text-decoration:none;color:var(--pink);font-weight:1000;font-size:clamp(17px,3vw,23px);text-shadow:1px 2px #fff}
+.card{background:linear-gradient(145deg,#fffefa,#fff5e8);border:4px solid var(--ink);border-radius:30px;padding:clamp(18px,4vw,34px);margin-top:22px;box-shadow:0 7px 0 #4b28764a,inset 0 0 0 4px #fff}
+.eyebrow{font-size:11px;font-weight:1000;letter-spacing:1.6px;color:var(--purple);margin:0 0 7px}
+h1{font-size:clamp(29px,5vw,46px);line-height:1.05;letter-spacing:-1px;margin:0 0 10px;color:var(--pink);text-shadow:2px 3px #fff,-2px -2px #fff,3px 4px #6a174b}
+h2{margin:0 0 8px;color:var(--purple);font-size:clamp(21px,4vw,30px)}
+.intro{font-size:15px;font-weight:800;line-height:1.5;margin:0;color:#4c3764}
+.name-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-top:22px}
+.name-tile{position:relative;min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:13px 8px;border:3px solid var(--ink);border-radius:21px;background:linear-gradient(145deg,#fff,#e4f8ff);box-shadow:0 5px 0 #b7a7cb,inset 0 0 0 3px #ffffffb5;color:var(--ink);font:inherit;font-weight:1000;cursor:pointer;transition:transform .16s,box-shadow .16s,filter .16s}
+.name-tile:nth-child(5n+2){background:linear-gradient(145deg,#fff,#ffe0f0)}
+.name-tile:nth-child(5n+3){background:linear-gradient(145deg,#fff9c9,#ffca22)}
+.name-tile:nth-child(5n+4){background:linear-gradient(145deg,#d7ffe5,#fff)}
+.name-tile:nth-child(5n){background:linear-gradient(145deg,#e8dcff,#fff)}
+.name-tile:hover{transform:translateY(-3px);box-shadow:0 8px 0 #b7a7cb;filter:saturate(1.08)}
+.name-tile:active{transform:translateY(2px);box-shadow:0 2px 0 #b7a7cb}
+.name-avatar{width:43px;height:43px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:15px;background:#fff;font-size:23px;box-shadow:0 3px 0 #0001}
+.name-tile span:last-child{font-size:clamp(12px,1.4vw,15px);line-height:1.15;overflow-wrap:anywhere}
+.pad{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));gap:10px;margin-top:18px;max-width:650px}
+.emoji{min-height:66px;font-size:clamp(26px,4vw,34px);padding:8px;border:3px solid var(--ink);border-radius:16px;background:linear-gradient(#fff,#f5eaff);cursor:pointer;box-shadow:0 4px 0 #bcb1ce;transition:transform .14s,background .14s}
+.emoji:nth-child(3n+1){background:linear-gradient(#fff,#fff0c2)}.emoji:nth-child(3n+2){background:linear-gradient(#fff,#e2f8ff)}
+.emoji.selected{background:#ffe58b;border-color:var(--purple);outline:3px solid #d7b7ff;transform:translateY(-2px)}
+button{font:inherit;font-weight:1000}
+.primary,.back{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(#ff72b8,#ef087c);border:3px solid var(--ink);border-radius:17px;color:white;padding:13px 19px;box-shadow:0 5px 0 #a30b58,inset 0 2px #ffc8e5;text-decoration:none;cursor:pointer;text-shadow:1px 2px #a30b58}
+.back{background:linear-gradient(#c5a4ff,#7024d9);box-shadow:0 4px 0 #3e1b78;padding:10px 14px}
+.primary:disabled{opacity:.6;cursor:wait}
+.notice{font-weight:900;min-height:24px;color:#9c1762;line-height:1.4;margin:13px 0 0}
+.login-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.selected-student{display:inline-flex;align-items:center;gap:9px;border:2px solid #c9b8e8;border-radius:999px;background:#fff;padding:8px 13px;font-weight:1000;color:var(--purple)}
+.assignment{display:flex;gap:14px;align-items:center;border:3px solid var(--ink);border-radius:22px;padding:18px;margin-top:15px;background:linear-gradient(110deg,#c5f2ff,#fff 60%,#ffe4f3);box-shadow:0 4px 0 #bdb2c9}
+.assignment-icon{font-size:42px}.assignment-info{flex:1}.assignment-info h2{font-size:21px;margin:0 0 5px}.assignment-info p{margin:4px 0;font-size:13px;font-weight:800;color:#655477}.status{display:inline-block;border:2px solid #159653;border-radius:999px;background:#d8ffe6;padding:6px 10px;font-size:12px;font-weight:1000;color:#087342}.status.locked{border-color:#b8a3ca;background:#f0e8fa;color:#6a557d}.open{background:linear-gradient(#ffe66c,#ffb500);color:var(--ink);border:3px solid var(--ink);border-radius:15px;padding:12px 15px;box-shadow:0 4px 0 #b87900;cursor:pointer;white-space:nowrap}.open:disabled{opacity:.55;cursor:not-allowed}
+[hidden]{display:none!important}
+@media(max-width:850px){.name-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.wrap{padding-top:14px}.name-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-tile{min-height:100px}.assignment{flex-wrap:wrap}.open{width:100%}.assignment-info{min-width:calc(100% - 70px)}.pad{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="brand" href="./index.html"><span aria-hidden="true">⚗️</span> Science Lab <span style="font-size:12px;color:var(--ink);text-shadow:none">· Student Portal</span></a>
+<section class="card" id="chooseStudent">
+<p class="eyebrow">WELCOME, YOUNG SCIENTISTS!</p>
+<h1>Who's ready to explore? 🔎</h1>
+<p class="intro">Find your name below and tap your tile. Everyone's name is right here—no dropdown needed!</p>
+<div id="nameGrid" class="name-grid" aria-label="Choose your name"><p class="intro">Loading your class…</p></div>
+<p class="notice" id="rosterNotice" role="status" aria-live="polite"></p>
+</section>
+<section class="card" id="passwordPage" hidden>
+<div class="login-top"><button class="back" id="backNames" type="button">← Back to names</button><span style="font-size:28px">🔐</span></div>
+<p class="eyebrow">SCIENTIST SIGN-IN</p>
+<h1 id="passwordHeading">Hi, scientist!</h1>
+<p class="intro">Tap your two emoji password pictures in the correct order.</p>
+<p><span class="selected-student" id="selectedStudent">🧪 Your name</span></p>
+<div class="pad" id="pad" aria-label="Emoji password choices"></div>
+<p id="progress" class="intro" style="margin-top:14px">Choose your first emoji.</p>
+<button class="primary" id="sign" type="button">🔐 Sign In</button>
+<p class="notice" id="notice" role="status" aria-live="polite"></p>
+</section>
+<section class="card" id="assignments" hidden>
+<p class="eyebrow">YOUR ASSIGNMENTS</p>
+<h1 id="welcome">My Assignments</h1>
+<p class="intro">You're signed in! Choose an assignment when your teacher has unlocked it.</p>
+<div class="assignment">
+<span class="assignment-icon" aria-hidden="true">🔦</span>
+<div class="assignment-info"><h2>Light Detective Sort-It!</h2><p>Light Energy · 12 picture cards · Graded</p><span class="status" id="sortStatus">Checking availability…</span><p id="sortDue">Checking due date…</p></div>
+<button class="open" id="open" type="button" disabled>Open Assignment →</button>
+</div>
+<p class="notice" id="assignmentNotice" role="status" aria-live="polite"></p>
+</section>
+</main>
+<script>
+const API='https://cwhkswbykgpfachpcjjo.supabase.co/functions/v1/light-sort-assignment';
+const choices=['🐶','🚀','🦖','⭐','🦄','🌈','🚗','🐱','🦋','🍕','❤️'];
+const avatars=['🧪','🔭','🦋','🚀','🌟','🦄','🪐','🦕','🌈','🐝','🧬','🌻','🦖','⭐','🔬'];
+let picked=[],token='',student='',assignmentAvailable=false,students=[];
+const pad=document.getElementById('pad'),notice=document.getElementById('notice');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function draw(){pad.innerHTML=choices.map(e=>'<button type="button" class="emoji'+(picked.includes(e)?' selected':'')+'" data-e="'+e+'" aria-label="Choose '+e+'">'+e+'</button>').join('');pad.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{if(picked.length<2){picked.push(b.dataset.e);document.getElementById('progress').textContent='Password: '+picked.join('  ')+(picked.length===1?' — choose your second emoji.':' — ready to sign in!');draw();}})}
+function showPassword(name){student=name;picked=[];document.getElementById('chooseStudent').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('passwordPage').hidden=false;document.getElementById('passwordHeading').textContent='Hello, '+name+'! 👋';document.getElementById('selectedStudent').textContent='🧪 '+name;document.getElementById('progress').textContent='Choose your first emoji.';notice.textContent='';draw();window.scrollTo({top:0,behavior:'smooth'});}
+function showNames(){document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=true;document.getElementById('chooseStudent').hidden=false;picked=[];student='';notice.textContent='';window.scrollTo({top:0,behavior:'smooth'});}
+function renderNames(){const grid=document.getElementById('nameGrid');if(!students.length){grid.innerHTML='<p class="intro">Your teacher has not added students yet.</p>';return;}grid.innerHTML=students.map((n,i)=>'<button type="button" class="name-tile" data-name="'+esc(n)+'"><span class="name-avatar" aria-hidden="true">'+avatars[i%avatars.length]+'</span><span>'+esc(n)+'</span></button>').join('');grid.querySelectorAll('[data-name]').forEach(b=>b.addEventListener('click',()=>showPassword(b.dataset.name)));}
+async function init(){try{const r=await fetch(API,{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error||'Could not load class roster.');students=Array.isArray(d.students)?d.students:[];renderNames();const a=d.assignment||{};assignmentAvailable=Boolean(a.available);const st=document.getElementById('sortStatus');st.textContent=assignmentAvailable?'🔓 Available':'🔒 Locked or past due';st.classList.toggle('locked',!assignmentAvailable);document.getElementById('sortDue').textContent=a.due_date?'Due: '+a.due_date:'No due date set';document.getElementById('open').disabled=!assignmentAvailable;}catch(e){document.getElementById('nameGrid').innerHTML='<p class="intro">We could not load the class roster. Please refresh and try again.</p>';document.getElementById('rosterNotice').textContent=e.message;}}
+document.getElementById('backNames').onclick=showNames;
+document.getElementById('sign').onclick=async()=>{if(!student){notice.textContent='Please tap your name first.';return;}if(picked.length!==2){notice.textContent='Choose both emoji pictures in the correct order.';return;}const btn=document.getElementById('sign');btn.disabled=true;notice.textContent='Checking your emoji password…';try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',student_name:student,emojis:picked})}),d=await r.json();if(!r.ok)throw Error(d.error||'Could not sign in.');token=d.session_token;student=d.student_name;document.getElementById('passwordPage').hidden=true;document.getElementById('assignments').hidden=false;document.getElementById('welcome').textContent='Hello, '+student+'! 👋';document.getElementById('assignmentNotice').textContent='';window.scrollTo({top:0,behavior:'smooth'});}catch(e){notice.textContent=e.message;picked=[];document.getElementById('progress').textContent='Try choosing your two emoji pictures again.';draw();}finally{btn.disabled=false;}};
+document.getElementById('open').onclick=()=>{if(!assignmentAvailable)return;const u=new URL('./light-energy-sort.html',location.href);u.searchParams.set('student',student);u.searchParams.set('session',token);location.href=u.href;};
+draw();init();
+</script>
+</body>
+</html>
