@@ -66,3 +66,22 @@ h1,h2,h3,p{margin-top:0}
 @media(max-width:520px){.summary-grid{gap:9px}.summary-card{padding:13px 11px;gap:9px;min-height:114px;border-radius:21px}.summary-icon{width:39px;height:39px;border-radius:13px;font-size:22px}.summary-card strong{font-size:24px}.summary-card small{font-size:9px}.panel{padding:15px;border-radius:24px}.unit-row{grid-template-columns:34px 5px minmax(0,1fr) 28px auto;gap:8px;padding:9px}.unit-number{width:33px;height:34px;font-size:12px}.unit-status{display:none}.unit-info h3{font-size:12px}.privacy-panel{grid-template-columns:70px minmax(0,1fr);gap:10px}.footer-note{align-items:flex-start;flex-wrap:wrap}.footer-note p{flex-basis:calc(100% - 40px)}.footer-note a{margin-left:38px}.profile-chip small{display:none}.welcome-row:after{opacity:.35}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 
+
+/* Animated cartoon padlock for assignment access */
+.assignment-lock{position:relative;display:grid;grid-template-columns:54px auto;grid-template-rows:auto auto;column-gap:11px;align-items:center;min-width:178px;padding:9px 15px 9px 10px;border:3px solid #28133f;border-radius:20px;background:linear-gradient(145deg,#ffe4f2,#fff);color:#542174;font-family:inherit;font-weight:1000;text-align:left;cursor:pointer;box-shadow:0 5px 0 #bdb2c9,inset 0 2px #fff;transition:transform .18s,background .25s,box-shadow .18s}
+.assignment-lock:hover{transform:translateY(-2px);box-shadow:0 7px 0 #bdb2c9,inset 0 2px #fff}
+.assignment-lock:active{transform:translateY(2px);box-shadow:0 2px 0 #bdb2c9}
+.assignment-lock:disabled{opacity:.8;cursor:wait}
+.lock-art{grid-row:1 / span 2;position:relative;width:50px;height:49px;display:block}
+.lock-shackle{position:absolute;z-index:1;left:12px;top:1px;width:27px;height:28px;border:6px solid #7a4bba;border-bottom:0;border-radius:17px 17px 0 0;transform-origin:75% 80%;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.lock-body{position:absolute;z-index:2;left:4px;bottom:1px;width:43px;height:31px;border:3px solid #28133f;border-radius:11px;background:linear-gradient(145deg,#c7a2ff,#8a4de4);box-shadow:inset 0 3px #fff8,0 3px 0 #4d2785;display:grid;place-items:center;transition:background .25s}
+.lock-keyhole{position:relative;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 6px 0 -1px #fff}
+.lock-keyhole:after{content:"";position:absolute;left:2px;top:6px;width:4px;height:7px;border-radius:2px;background:#fff}
+.lock-label{font-size:14px;line-height:1.1;align-self:end}
+.lock-hint{font-size:10px;line-height:1.1;align-self:start;color:#715a85;margin-top:3px}
+.assignment-lock.is-unlocked{background:linear-gradient(145deg,#d8ffe6,#fff);color:#087342}
+.assignment-lock.is-unlocked .lock-shackle{transform:translate(5px,-5px) rotate(28deg);border-color:#16a86a}
+.assignment-lock.is-unlocked .lock-body{background:linear-gradient(145deg,#7af0a7,#12b96b);box-shadow:inset 0 3px #ffffffa8,0 3px 0 #087b43}
+.assignment-lock.lock-wiggle .lock-art{animation:lockBounce .36s ease}
+@keyframes lockBounce{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-4px) rotate(-7deg)}70%{transform:translateY(1px) rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){.assignment-lock,.lock-shackle,.lock-body{transition:none}.assignment-lock.lock-wiggle .lock-art{animation:none}}
